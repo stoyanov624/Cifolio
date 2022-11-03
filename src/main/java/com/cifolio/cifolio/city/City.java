@@ -8,12 +8,12 @@ public class City {
     @Id
     private Long id;
     private String name;
-    private String photoUrl;
+    private String photo;
 
     public City() {}
-    public City(String name, String photoUrl) {
+    public City(String name, String photo) {
         this.name = name;
-        this.photoUrl = photoUrl;
+        this.photo = photo;
     }
 
     @Override
@@ -21,7 +21,23 @@ public class City {
         return "City{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", photoUrl='" + photoUrl + '\'' +
+                ", photoUrl='" + photo + '\'' +
                 '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

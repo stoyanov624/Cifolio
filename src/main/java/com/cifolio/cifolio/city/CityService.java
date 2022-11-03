@@ -13,4 +13,9 @@ public class CityService {
     public CityService(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
     }
+
+    public List<City> getCities() {
+        return cityRepository.findAll();
+    }
+
 }

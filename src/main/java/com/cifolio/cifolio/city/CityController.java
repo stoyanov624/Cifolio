@@ -16,4 +16,9 @@ public class CityController {
     public CityController(CityService cityService) {
         this.cityService = cityService;
     }
+
+    @GetMapping
+    public List<City> getCities() {
+        return cityService.getCities();
+    }
 }
