@@ -15,7 +15,6 @@ public class City {
         this.name = name;
         this.photo = photo;
     }
-
     @Override
     public String toString() {
         return "City{" +
@@ -24,7 +23,6 @@ public class City {
                 ", photoUrl='" + photo + '\'' +
                 '}';
     }
-
     public String getName() {
         return name;
     }
@@ -39,5 +37,11 @@ public class City {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 }
