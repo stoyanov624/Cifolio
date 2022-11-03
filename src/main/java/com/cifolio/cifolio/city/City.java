@@ -6,11 +6,18 @@ import javax.persistence.*;
 @Table(name = "cities")
 public class City {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String photo;
 
     public City() {}
+
+    public City(Long id, String name, String photo) {
+        this.id = id;
+        this.name = name;
+        this.photo = photo;
+    }
     public City(String name, String photo) {
         this.name = name;
         this.photo = photo;

@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CityRepository extends JpaRepository<City, Long> {
+
+
     Page<City> findAllOnPageByNameIsContaining(String name, Pageable pagingData);
 }
