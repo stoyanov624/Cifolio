@@ -9,8 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import javax.swing.text.html.Option;
-
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -21,7 +19,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class CityServiceTest {
+class CityServiceTests {
 
     @Mock
     private CityRepository cityRepository;
@@ -34,8 +32,8 @@ class CityServiceTest {
 
     @Test
     void shouldGetAllCitiesOnPage() {
-        Pageable pagingData = PageRequest.of(0, 12);
-        cityServiceUnderTest.getCitiesPage(PageRequest.of(0, 12));
+        Pageable pagingData = PageRequest.of(Integer.parseInt(CityConstants.DEFAULT_PAGE), Integer.parseInt(CityConstants.DEFAULT_PAGE_SIZE));
+        cityServiceUnderTest.getCitiesPage(pagingData);
 
         verify(cityRepository).findAll(pagingData);
     }

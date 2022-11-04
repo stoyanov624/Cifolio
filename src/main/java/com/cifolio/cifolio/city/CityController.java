@@ -19,8 +19,8 @@ public class CityController {
     @GetMapping
     public Page<City> getCitiesPage(
             @RequestParam(required = false) String cityName,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "12") int size) {
+            @RequestParam(defaultValue = CityConstants.DEFAULT_PAGE) int page,
+            @RequestParam(defaultValue = CityConstants.DEFAULT_PAGE_SIZE) int size) {
 
         Pageable pagingData = PageRequest.of(page, size);
         if (cityName == null || cityName.isEmpty() || cityName.trim().isEmpty()) {
