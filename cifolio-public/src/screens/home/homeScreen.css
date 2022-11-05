@@ -3,18 +3,22 @@
 }
 
 .mainHeader {
-    width: 100%;
+    width: fit-content;
+    padding: 0 5%;
+    margin: auto;
     height: 75px;
-    background: rgba(106, 118, 125, 0.6);
+    background: rgba(106, 118, 125, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .photosContainer {
     display: grid;
     grid-template: auto auto / repeat(4, 1fr);
-    grid-gap: 30px;
+    grid-gap: 1em;
     margin-top: 1em
 }
 
@@ -23,14 +27,14 @@
 }
 
 .photoContainer > img {
-    width: 300px;
-    height: 200px;
+    width: 500px;
+    height: 350px;
     border-radius: 30px;
 }
 
-@media screen and (min-width: 1400px) {
+@media screen and (max-width: 1800px) {
     .photoContainer > img {
-        width: 500px;
-        height: 350px;
+        width: 300px;
+        height: 200px;
     }
 }
