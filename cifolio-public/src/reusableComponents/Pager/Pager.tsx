@@ -5,9 +5,9 @@ const Pager = () => {
     return (
         <div className={"pager"}>
             <p>1</p>
-            <AiOutlineArrowLeft/>
+            <AiOutlineArrowLeft className={"clickable"} onClick={() => console.log('go left')} />
             <input type={"text"} className={"pageInput"}/>
-            <AiOutlineArrowRight/>
+            <AiOutlineArrowRight className={"clickable"} onClick={() => console.log('go right')}/>
             <p>100</p>
         </div>)
 }

@@ -7,7 +7,10 @@
 body {
   background: url("assets/home-background.jpg") no-repeat fixed;
   background-size: cover;
-  overflow: hidden;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 .center {
