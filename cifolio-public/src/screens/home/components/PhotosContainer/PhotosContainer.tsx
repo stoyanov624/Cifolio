@@ -1,50 +1,29 @@
 import "../../homeScreen.css"
 import PhotoContainer from "../PhotoContainer/PhotoContainer";
 import Pager from "../../../../reusableComponents/Pager/Pager";
-
-const dummyData: Array<any> = [
-    {
-    name: "Sofia",
-    url: "https://planetofhotels.com/guide/sites/default/files/styles/paragraph__live_banner__lb_image__1880bp/public/live_banner/sofia-1.jpg"
-    },
-    {
-        name: "Tokyo",
-        url: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg"
-    },
-    {
-        name: "Sofia",
-        url: "https://planetofhotels.com/guide/sites/default/files/styles/paragraph__live_banner__lb_image__1880bp/public/live_banner/sofia-1.jpg"
-    },
-    {
-        name: "Tokyo",
-        url: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg"
-    },
-    {
-        name: "Sofia",
-        url: "https://planetofhotels.com/guide/sites/default/files/styles/paragraph__live_banner__lb_image__1880bp/public/live_banner/sofia-1.jpg"
-    },
-    {
-        name: "Sofia",
-        url: "https://planetofhotels.com/guide/sites/default/files/styles/paragraph__live_banner__lb_image__1880bp/public/live_banner/sofia-1.jpg"
-    },
-    {
-        name: "Tokyo",
-        url: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg"
-    },
-    {
-        name: "Sofia",
-        url: "https://planetofhotels.com/guide/sites/default/files/styles/paragraph__live_banner__lb_image__1880bp/public/live_banner/sofia-1.jpg"
-    }
-]
+import {useEffect, useState} from "react";
+import fetchCities from "../../../../api/cityService";
 
 export default function PhotosContainer () {
+    const [cities, setCities] = useState([]);
+
+    useEffect(() => {
+        prepare();
+    }, []);
+
+    const prepare = async () => {
+        const cityData = await fetchCities(1, 8);
+        setCities(cityData.content);
+    }
+
     return (
     <>
         <div className={"photosContainer"}>
-            {dummyData.map(data =>
+            {cities.map((data : {name: string, photo: string}, index) =>
                 <PhotoContainer
+                    key={index}
                     name={data.name}
-                    url={data.url}
+                    url={data.photo}
                 />
         )}
         </div>
