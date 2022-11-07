@@ -1,21 +1,18 @@
 import {FC} from "react";
 import defaultCityImg from "../../../../assets/default-city-img.jpg"
-interface PhotoData {
-    name: string,
-    url: string
-}
+import {CityModel} from "../PhotosContainer/PhotosContainer";
 
-const PhotoContainer:FC<PhotoData> = ({name, url}) => {
+const PhotoContainer:FC<CityModel> = (city) => {
     function handleImageNotLoading (erroneousTarget : HTMLImageElement) {
         erroneousTarget.src = defaultCityImg;
     }
 
     return (
         <div className={"photoContainer"}>
-            <h2>{name}</h2>
+            <h2>{city.name}</h2>
             <img
-                src={url}
-                onError={(event) => handleImageNotLoading(event.target as HTMLImageElement)}
+                src={city.photo}
+                onError={event => handleImageNotLoading(event.target as HTMLImageElement)}
                 alt={'Missing photo!'}/>
         </div>
     )

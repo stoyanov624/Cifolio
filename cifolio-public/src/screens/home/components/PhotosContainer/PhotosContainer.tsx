@@ -1,34 +1,59 @@
 import "../../homeScreen.css"
+import {useEffect, useState} from "react";
 import PhotoContainer from "../PhotoContainer/PhotoContainer";
 import Pager from "../../../../reusableComponents/Pager/Pager";
-import {useEffect, useState} from "react";
 import fetchCities from "../../../../api/cityService";
 
+export interface CityModel {
+    name: string,
+    photo: string
+}
+
+export interface PagingData {
+    currentPage: number,
+    totalPages: number;
+}
+
 export default function PhotosContainer () {
-    const [cities, setCities] = useState([]);
+    const [cities, setCities] = useState<CityModel[]>([]);
+    const [pagingData, setPagingData] = useState<PagingData>({
+        currentPage: 1,
+        totalPages: 0,
+    });
+
+    const goToPage = async (page: number) => {
+        setPagingData(prevState => ({
+            ...prevState,
+            currentPage: page
+        }))
+        const cityData = await fetchCities(page - 1, 8);
+        setCities(cityData.content);
+    }
 
     useEffect(() => {
-        prepare();
+        loadPage();
     }, []);
 
-    const prepare = async () => {
-        const cityData = await fetchCities(0, 8);
+    const loadPage = async () => {
+        const cityData = await fetchCities(pagingData.currentPage - 1, 8);
         setCities(cityData.content);
+        setPagingData({currentPage: pagingData.currentPage, totalPages: cityData.totalPages});
     }
 
     return (
     <>
         <div className={"photosContainer"}>
-            {cities.map((data : {name: string, photo: string}, index) =>
+            {cities.map((city, index) =>
                 <PhotoContainer
                     key={index}
-                    name={data.name}
-                    url={data.photo}
+                    {...city}
                 />
         )}
         </div>
 
-        <Pager></Pager>
-
+        <Pager
+            pagingData={pagingData}
+            goToPage={goToPage}
+        />
     </>)
 }
