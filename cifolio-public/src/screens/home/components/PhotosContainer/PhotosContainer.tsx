@@ -12,7 +12,7 @@ export default function PhotosContainer () {
     }, []);
 
     const prepare = async () => {
-        const cityData = await fetchCities(1, 8);
+        const cityData = await fetchCities(0, 8);
         setCities(cityData.content);
     }
 
