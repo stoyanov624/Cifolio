@@ -15,6 +15,7 @@ export interface PagingData {
 }
 
 export default function PhotosContainer () {
+    const DEFAULT_PAGE_SIZE = 8;
     const [cities, setCities] = useState<CityModel[]>([]);
     const [pagingData, setPagingData] = useState<PagingData>({
         currentPage: 1,
@@ -26,7 +27,7 @@ export default function PhotosContainer () {
             ...prevState,
             currentPage: page
         }))
-        const cityData = await fetchCities(page - 1, 8);
+        const cityData = await fetchCities(page - 1, DEFAULT_PAGE_SIZE);
         setCities(cityData.content);
     }
 
@@ -35,9 +36,12 @@ export default function PhotosContainer () {
     }, []);
 
     const loadPage = async () => {
-        const cityData = await fetchCities(pagingData.currentPage - 1, 8);
+        const cityData = await fetchCities(pagingData.currentPage - 1, DEFAULT_PAGE_SIZE);
         setCities(cityData.content);
-        setPagingData({currentPage: pagingData.currentPage, totalPages: cityData.totalPages});
+        setPagingData(prevState => ({
+            ...prevState,
+            totalPages: cityData.totalPages
+        }));
     }
 
     return (
