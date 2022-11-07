@@ -12,6 +12,13 @@ interface ModalProps {
 const CityUpdateModal:FC<ModalProps> = (modalProps) => {
     const [cityToUpdate, setCityToUpdate] = useState(modalProps.cityToUpdate);
 
+    const isValidInput = () => {
+        return cityToUpdate.name
+            && cityToUpdate.name.trim()
+            && cityToUpdate.photo
+            && cityToUpdate.photo.trim();
+    }
+
     const updateCityState = (event : ChangeEvent) => {
         const {name, value} = event.target as HTMLInputElement;
         setCityToUpdate(prevState => ({
@@ -34,19 +41,20 @@ const CityUpdateModal:FC<ModalProps> = (modalProps) => {
                 />
                 <p>City Name</p>
                 <input
-                    value={cityToUpdate.name}
+                    value={cityToUpdate.name.trimStart()}
                     type={"text"}
                     name={"name"}
                     onChange={updateCityState}
                 />
                 <p>Photo Url</p>
                 <input
-                    value={cityToUpdate.photo}
+                    value={cityToUpdate.photo.trimStart()}
                     type={"text"}
                     name={"photo"}
                     onChange={updateCityState}
                 />
-                <button onClick={handleSave}>Save</button>
+                <button disabled={!isValidInput()} onClick={handleSave}>Save</button>
+                {!isValidInput() && <p className={"error-message"}>All fields must be filled!</p>}
             </div>
         </div>
     )
