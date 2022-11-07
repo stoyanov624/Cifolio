@@ -32,6 +32,16 @@
     border-radius: 30px;
 }
 
+.city-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.city-nav > * {
+    margin: 0 5px;
+}
+
 @media screen and (max-width: 1800px) {
     .photoContainer > img {
         width: 300px;

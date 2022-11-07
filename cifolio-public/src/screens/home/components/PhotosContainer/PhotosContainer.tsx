@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import PhotoContainer from "../PhotoContainer/PhotoContainer";
 import Pager from "../../../../reusableComponents/Pager/Pager";
 import fetchCities from "../../../../api/cityService";
+import CityUpdateModal from "../CityUpdateModal/CityUpdateModal";
 
 export interface CityModel {
     name: string,
@@ -59,5 +60,7 @@ export default function PhotosContainer () {
             pagingData={pagingData}
             goToPage={goToPage}
         />
+
+        <CityUpdateModal></CityUpdateModal>
     </>)
 }
