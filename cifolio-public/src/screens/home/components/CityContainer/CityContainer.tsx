@@ -1,6 +1,6 @@
 import {FC, useState} from "react";
 import defaultCityImg from "../../../../assets/default-city-img.jpg"
-import {CityModel} from "../PhotosContainer/PhotosContainer";
+import {CityModel} from "../CitiesContainer/CitiesContainer";
 import { BsFillPencilFill } from "react-icons/bs";
 import CityUpdateModal from "../CityUpdateModal/CityUpdateModal";
 
@@ -9,7 +9,7 @@ interface PhotoContainerProps {
     updateCity: (city: CityModel) => void
 }
 
-const PhotoContainer:FC<PhotoContainerProps> = (photoContainerProps) => {
+const CityContainer:FC<PhotoContainerProps> = (photoContainerProps) => {
     const [isOpenModal, setIsOpenModal] = useState(false);
 
     function handleImageNotLoading (erroneousTarget : HTMLImageElement) {
@@ -39,4 +39,4 @@ const PhotoContainer:FC<PhotoContainerProps> = (photoContainerProps) => {
     )
 }
 
-export default PhotoContainer;
+export default CityContainer;

@@ -1,4 +1,7 @@
 .modal-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     left: 0;
     top: 0;
     height: 100vh;
@@ -57,7 +60,7 @@
 }
 
 .modal-close-square {
-    position: absolute;
-    top: 0;
-    right: 10px;
+    margin-bottom: 1.5em;
+    margin-right: 1em;
+    margin-left: auto;
 }

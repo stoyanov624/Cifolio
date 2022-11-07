@@ -1,7 +1,7 @@
 import { TfiClose } from "react-icons/tfi";
 import "./CityUpdateModal.css"
 import {ChangeEvent, FC, FormEvent, SyntheticEvent, useState} from "react";
-import {CityModel} from "../PhotosContainer/PhotosContainer";
+import {CityModel} from "../CitiesContainer/CitiesContainer";
 
 interface ModalProps {
     cityToUpdate: CityModel
@@ -34,7 +34,8 @@ const CityUpdateModal:FC<ModalProps> = (modalProps) => {
 
     return (
         <div className={"modal-background"}>
-            <div className={"update-modal center"}>
+
+            <div className={"update-modal"}>
                 <TfiClose
                     onClick={() => modalProps.setIsOpenModal(false)}
                     className={"modal-close-square clickable"}

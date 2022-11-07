@@ -1,6 +1,6 @@
 import "../../homeScreen.css"
 import {useEffect, useState} from "react";
-import PhotoContainer from "../PhotoContainer/PhotoContainer";
+import CityContainer from "../CityContainer/CityContainer";
 import Pager from "../../../../reusableComponents/Pager/Pager";
 import {fetchCities, updateCity} from "../../../../api/cityService";
 
@@ -15,7 +15,7 @@ export interface PagingData {
     totalPages: number;
 }
 
-export default function PhotosContainer () {
+export default function CitiesContainer () {
     const DEFAULT_PAGE_SIZE = 8;
     const [cities, setCities] = useState<CityModel[]>([]);
     const [pagingData, setPagingData] = useState<PagingData>({
@@ -69,7 +69,7 @@ export default function PhotosContainer () {
     <div>
         <div className={"photosContainer"}>
             {cities.map((city, index) =>
-                <PhotoContainer
+                <CityContainer
                     key={index}
                     city={city}
                     updateCity={updateSelectedCity}

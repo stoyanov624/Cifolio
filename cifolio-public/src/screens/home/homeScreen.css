@@ -43,10 +43,3 @@
 .city-nav > * {
     margin: 0 5px;
 }
-
-@media screen and (max-width: 1800px) {
-    .photoContainer > img {
-        width: 300px;
-        height: 200px;
-    }
-}

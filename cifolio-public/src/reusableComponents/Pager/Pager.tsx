@@ -1,7 +1,7 @@
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 import "./Pager.css"
 import {FC} from "react";
-import {PagingData} from "../../screens/home/components/PhotosContainer/PhotosContainer";
+import {PagingData} from "../../screens/home/components/CitiesContainer/CitiesContainer";
 
 interface PagerProps {
     pagingData: PagingData,
