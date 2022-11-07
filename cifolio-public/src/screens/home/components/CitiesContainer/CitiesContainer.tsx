@@ -21,7 +21,7 @@ export default function CitiesContainer () {
     const [cities, setCities] = useState<CityModel[]>([]);
     const [pagingData, setPagingData] = useState<PagingData>({
         currentPage: 1,
-        totalPages: 0,
+        totalPages: 1,
     });
 
     const goToPage = async (page: number) => {
@@ -37,12 +37,12 @@ export default function CitiesContainer () {
         loadPage();
     }, []);
 
-    const loadPage = async () => {
-        const cityData = await fetchCities(pagingData.currentPage - 1, DEFAULT_PAGE_SIZE);
+    const loadPage = async (cityName?: string) => {
+        const cityData = await fetchCities(0, DEFAULT_PAGE_SIZE, cityName);
         setCities(cityData.content);
         setPagingData(prevState => ({
-            ...prevState,
-            totalPages: cityData.totalPages
+            currentPage: 1,
+            totalPages: cityData.totalPages || 1
         }));
     }
 
@@ -68,7 +68,7 @@ export default function CitiesContainer () {
 
     return (
     <div>
-        <SearchBar/>
+        <SearchBar executeSearch={loadPage}/>
         <div className={"photosContainer"}>
             {cities.map((city, index) =>
                 <CityContainer
