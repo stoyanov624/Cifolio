@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import CityContainer from "../CityContainer/CityContainer";
 import Pager from "../../../../reusableComponents/Pager/Pager";
 import {fetchCities, updateCity} from "../../../../api/cityService";
+import SearchBar from "../../../../reusableComponents/SearchBar/SearchBar";
 
 export interface CityModel {
     id: number,
@@ -67,6 +68,7 @@ export default function CitiesContainer () {
 
     return (
     <div>
+        <SearchBar/>
         <div className={"photosContainer"}>
             {cities.map((city, index) =>
                 <CityContainer
@@ -77,11 +79,6 @@ export default function CitiesContainer () {
         )}
         </div>
 
-        <Pager
-            pagingData={pagingData}
-            goToPage={goToPage}
-        />
-
-
+        <Pager pagingData={pagingData} goToPage={goToPage}/>
     </div>)
 }
