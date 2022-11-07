@@ -2,8 +2,7 @@ import "../../homeScreen.css"
 import {useEffect, useState} from "react";
 import PhotoContainer from "../PhotoContainer/PhotoContainer";
 import Pager from "../../../../reusableComponents/Pager/Pager";
-import fetchCities from "../../../../api/cityService";
-import CityUpdateModal from "../CityUpdateModal/CityUpdateModal";
+import {fetchCities, updateCity} from "../../../../api/cityService";
 
 export interface CityModel {
     id: number,
@@ -46,7 +45,7 @@ export default function PhotosContainer () {
         }));
     }
 
-    const updateCity = (updatedCity: CityModel) => {
+    const modifyCities = (updatedCity: CityModel) => {
         const updatedCities = cities.map(city => {
             if(city.id === updatedCity.id) {
                 return {
@@ -61,6 +60,11 @@ export default function PhotosContainer () {
         setCities(updatedCities);
     }
 
+    const updateSelectedCity = (updatedCity: CityModel) => {
+        modifyCities(updatedCity);
+        updateCity(updatedCity);
+    }
+
     return (
     <div>
         <div className={"photosContainer"}>
@@ -68,7 +72,7 @@ export default function PhotosContainer () {
                 <PhotoContainer
                     key={index}
                     city={city}
-                    updateCity={updateCity}
+                    updateCity={updateSelectedCity}
                 />
         )}
         </div>
