@@ -46,7 +46,7 @@ export default function PhotosContainer () {
     }
 
     return (
-    <>
+    <div>
         <div className={"photosContainer"}>
             {cities.map((city, index) =>
                 <PhotoContainer
@@ -61,6 +61,6 @@ export default function PhotosContainer () {
             goToPage={goToPage}
         />
 
-        <CityUpdateModal></CityUpdateModal>
-    </>)
+
+    </div>)
 }

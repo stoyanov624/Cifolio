@@ -30,6 +30,8 @@
     width: 400px;
     height: 300px;
     border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 15px;
+
 }
 
 .city-nav {
