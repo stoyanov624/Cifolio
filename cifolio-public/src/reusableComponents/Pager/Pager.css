@@ -1,0 +1,30 @@
+.pager {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3em;
+}
+
+.pager > * {
+    margin: 5px;
+    font-size: 20px;
+}
+
+.pageInput {
+    width: 45px;
+    height: 30px;
+    color: black;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+}
+
+.pageInput:focus {
+    outline: none;
+}
+
+.disabled {
+    opacity: 0.7;
+    cursor: default;
+}

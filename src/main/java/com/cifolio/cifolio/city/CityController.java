@@ -21,9 +21,9 @@ public class CityController {
     public Page<City> getCitiesPage(
             @RequestParam(required = false) String cityName,
             @RequestParam(defaultValue = CityConstants.DEFAULT_PAGE) int page,
-            @RequestParam(defaultValue = CityConstants.DEFAULT_PAGE_SIZE) int size) {
+            @RequestParam(defaultValue = CityConstants.DEFAULT_PAGE_SIZE) int pageSize) {
 
-        Pageable pagingData = PageRequest.of(page, size);
+        Pageable pagingData = PageRequest.of(page, pageSize);
         if (cityName == null || cityName.isEmpty() || cityName.trim().isEmpty()) {
             return cityService.getCitiesPage(pagingData);
         }
