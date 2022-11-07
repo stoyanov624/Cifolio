@@ -6,6 +6,7 @@ import fetchCities from "../../../../api/cityService";
 import CityUpdateModal from "../CityUpdateModal/CityUpdateModal";
 
 export interface CityModel {
+    id: number,
     name: string,
     photo: string
 }
@@ -45,13 +46,29 @@ export default function PhotosContainer () {
         }));
     }
 
+    const updateCity = (updatedCity: CityModel) => {
+        const updatedCities = cities.map(city => {
+            if(city.id === updatedCity.id) {
+                return {
+                    ...city,
+                    name: updatedCity.name,
+                    photo: updatedCity.photo
+                }
+            }
+            return city
+        })
+
+        setCities(updatedCities);
+    }
+
     return (
     <div>
         <div className={"photosContainer"}>
             {cities.map((city, index) =>
                 <PhotoContainer
                     key={index}
-                    {...city}
+                    city={city}
+                    updateCity={updateCity}
                 />
         )}
         </div>

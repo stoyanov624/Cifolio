@@ -6,6 +6,7 @@ import {CityModel} from "../PhotosContainer/PhotosContainer";
 interface ModalProps {
     cityToUpdate: CityModel
     setIsOpenModal: (isOpen: boolean) => void;
+    updateCity: (city: CityModel) => void;
 }
 
 const CityUpdateModal:FC<ModalProps> = (modalProps) => {
@@ -17,6 +18,11 @@ const CityUpdateModal:FC<ModalProps> = (modalProps) => {
             ...prevState,
             [name]: value
         }))
+    }
+
+    const handleSave = () => {
+        modalProps.updateCity(cityToUpdate);
+        modalProps.setIsOpenModal(false);
     }
 
     return (
@@ -40,7 +46,7 @@ const CityUpdateModal:FC<ModalProps> = (modalProps) => {
                     name={"photo"}
                     onChange={updateCityState}
                 />
-                <button onClick={() => console.log(cityToUpdate)}>Save</button>
+                <button onClick={handleSave}>Save</button>
             </div>
         </div>
     )

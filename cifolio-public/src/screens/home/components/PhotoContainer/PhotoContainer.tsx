@@ -4,8 +4,12 @@ import {CityModel} from "../PhotosContainer/PhotosContainer";
 import { BsFillPencilFill } from "react-icons/bs";
 import CityUpdateModal from "../CityUpdateModal/CityUpdateModal";
 
+interface PhotoContainerProps {
+    city: CityModel,
+    updateCity: (city: CityModel) => void
+}
 
-const PhotoContainer:FC<CityModel> = (city) => {
+const PhotoContainer:FC<PhotoContainerProps> = (photoContainerProps) => {
     const [isOpenModal, setIsOpenModal] = useState(false);
 
     function handleImageNotLoading (erroneousTarget : HTMLImageElement) {
@@ -16,19 +20,20 @@ const PhotoContainer:FC<CityModel> = (city) => {
         <>
             <div className={"photoContainer"}>
                 <div className={"city-nav"}>
-                    <h2>{city.name}</h2>
+                    <h2>{photoContainerProps.city.name}</h2>
                     <BsFillPencilFill className={"clickable"} onClick={() => setIsOpenModal(true)} />
                 </div>
                 <img
-                    src={city.photo}
+                    src={photoContainerProps.city.photo}
                     onError={event => handleImageNotLoading(event.target as HTMLImageElement)}
                     alt={'Missing photo!'}/>
             </div>
 
             {isOpenModal &&
             <CityUpdateModal
-                cityToUpdate={city}
+                cityToUpdate={photoContainerProps.city}
                 setIsOpenModal={setIsOpenModal}
+                updateCity={photoContainerProps.updateCity}
             />}
         </>
     )
