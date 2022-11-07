@@ -2,9 +2,10 @@ import "../../homeScreen.css"
 import {useEffect, useState} from "react";
 import PhotoContainer from "../PhotoContainer/PhotoContainer";
 import Pager from "../../../../reusableComponents/Pager/Pager";
-import fetchCities from "../../../../api/cityService";
+import {fetchCities, updateCity} from "../../../../api/cityService";
 
 export interface CityModel {
+    id: number,
     name: string,
     photo: string
 }
@@ -44,13 +45,34 @@ export default function PhotosContainer () {
         }));
     }
 
+    const modifyCities = (updatedCity: CityModel) => {
+        const updatedCities = cities.map(city => {
+            if(city.id === updatedCity.id) {
+                return {
+                    ...city,
+                    name: updatedCity.name,
+                    photo: updatedCity.photo
+                }
+            }
+            return city
+        })
+
+        setCities(updatedCities);
+    }
+
+    const updateSelectedCity = (updatedCity: CityModel) => {
+        modifyCities(updatedCity);
+        updateCity(updatedCity);
+    }
+
     return (
-    <>
+    <div>
         <div className={"photosContainer"}>
             {cities.map((city, index) =>
                 <PhotoContainer
                     key={index}
-                    {...city}
+                    city={city}
+                    updateCity={updateSelectedCity}
                 />
         )}
         </div>
@@ -59,5 +81,7 @@ export default function PhotosContainer () {
             pagingData={pagingData}
             goToPage={goToPage}
         />
-    </>)
+
+
+    </div>)
 }
