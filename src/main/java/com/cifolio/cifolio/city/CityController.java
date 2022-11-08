@@ -1,5 +1,7 @@
 package com.cifolio.cifolio.city;
 
+import com.cifolio.cifolio.dtos.CityDto;
+import com.cifolio.cifolio.model.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,16 +20,12 @@ public class CityController {
     }
 
     @GetMapping
-    public Page<City> getCitiesPage(
+    public Page<CityDto> getCitiesPage(
             @RequestParam(required = false) String cityName,
             @RequestParam(defaultValue = CityConstants.DEFAULT_PAGE) int page,
             @RequestParam(defaultValue = CityConstants.DEFAULT_PAGE_SIZE) int pageSize) {
 
         Pageable pagingData = PageRequest.of(page, pageSize);
-        if (cityName == null || cityName.isEmpty() || cityName.trim().isEmpty()) {
-            return cityService.getCitiesPage(pagingData);
-        }
-
         return cityService.getCitiesPage(cityName, pagingData);
     }
 

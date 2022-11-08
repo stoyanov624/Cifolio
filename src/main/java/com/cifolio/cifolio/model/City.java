@@ -1,4 +1,4 @@
-package com.cifolio.cifolio.city;
+package com.cifolio.cifolio.model;
 
 import javax.persistence.*;
 
@@ -8,12 +8,22 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
     private String name;
+
+    @Column
     private String photo;
 
     public City() {}
 
     public City(String name, String photo) {
+        this.name = name;
+        this.photo = photo;
+    }
+
+    public City(Long id, String name, String photo) {
+        this.id = id;
         this.name = name;
         this.photo = photo;
     }
