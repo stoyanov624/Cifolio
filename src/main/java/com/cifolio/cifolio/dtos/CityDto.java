@@ -11,6 +11,12 @@ public class CityDto {
         this.photo = photo;
     }
 
+    public CityDto(String name, String photo) {
+        this.name = name;
+        this.photo = photo;
+    }
+
+
     public CityDto() {}
 
     public Long getId() {

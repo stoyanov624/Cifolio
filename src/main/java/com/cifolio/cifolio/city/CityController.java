@@ -1,12 +1,13 @@
 package com.cifolio.cifolio.city;
 
 import com.cifolio.cifolio.dtos.CityDto;
-import com.cifolio.cifolio.model.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+
+import static com.cifolio.cifolio.city.CityConstants.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -22,10 +23,8 @@ public class CityController {
     @GetMapping
     public Page<CityDto> getCitiesPage(
             @RequestParam(required = false) String cityName,
-            @RequestParam(defaultValue = CityConstants.DEFAULT_PAGE) int page,
-            @RequestParam(defaultValue = CityConstants.DEFAULT_PAGE_SIZE) int pageSize) {
+            @PageableDefault(size = DEFAULT_PAGE_SIZE) Pageable pagingData) {
 
-        Pageable pagingData = PageRequest.of(page, pageSize);
         return cityService.getCitiesPage(cityName, pagingData);
     }
 

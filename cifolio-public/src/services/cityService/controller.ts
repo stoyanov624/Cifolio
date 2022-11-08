@@ -10,7 +10,7 @@ const fetchCities = async (page: number, pageSize: number, cityName?: string) =>
         params: {
             cityName: cityName,
             page: page,
-            pageSize: pageSize
+            size: pageSize
         }
     })).data;
 }

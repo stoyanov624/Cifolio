@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import static com.cifolio.cifolio.city.CityConstants.DEFAULT_PAGING_DATA;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -21,16 +22,14 @@ class CityRepositoryTests {
     void shouldFindCitiesByNameWhenTheyArePresentInDb() {
         City city = new City("Sofia", "someUrl");
         underTest.save(city);
-        Pageable pagingData = PageRequest.of(Integer.parseInt(CityConstants.DEFAULT_PAGE), Integer.parseInt(CityConstants.DEFAULT_PAGE_SIZE));
 
-        Page<City> citiesPage = underTest.findAllOnPageByNameIsContaining("Sofia", pagingData);
+        Page<City> citiesPage = underTest.findAllOnPageByNameIsContaining("Sofia", DEFAULT_PAGING_DATA);
         assertThat(citiesPage).extracting("name").contains("Sofia");
     }
 
     @Test
     void shouldNotFindCitiesByNameWhenTheyAreNotPresentInDb() {
-        Pageable pagingData = PageRequest.of(Integer.parseInt(CityConstants.DEFAULT_PAGE), Integer.parseInt(CityConstants.DEFAULT_PAGE_SIZE));
-        Page<City> citiesPage = underTest.findAllOnPageByNameIsContaining("Sofia", pagingData);
+        Page<City> citiesPage = underTest.findAllOnPageByNameIsContaining("Sofia", DEFAULT_PAGING_DATA);
         assertThat(citiesPage).extracting("name").doesNotContain("Sofia");
     }
 

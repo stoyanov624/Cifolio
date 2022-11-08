@@ -1,5 +1,6 @@
 package com.cifolio.cifolio.city;
 
+import com.cifolio.cifolio.dtos.CityDto;
 import com.cifolio.cifolio.model.City;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
+import static com.cifolio.cifolio.city.CityConstants.DEFAULT_PAGING_DATA;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,16 +35,17 @@ class CityServiceTests {
 
     @Test
     void shouldGetAllCitiesOnPage() {
-        Pageable pagingData = PageRequest.of(Integer.parseInt(CityConstants.DEFAULT_PAGE), Integer.parseInt(CityConstants.DEFAULT_PAGE_SIZE));
-        cityServiceUnderTest.getCitiesPage(pagingData);
+        Pageable pagingData = PageRequest.of(CityConstants.DEFAULT_PAGE, CityConstants.DEFAULT_PAGE_SIZE);
+        cityServiceUnderTest.getCitiesPage("", DEFAULT_PAGING_DATA);
 
         verify(cityRepository).findAll(pagingData);
     }
 
     @Test
     void shouldUpdateCity() {
-        City city = new City( "Sofia", "someUrl");
-        given(cityRepository.findById(any())).willReturn(Optional.of(city));
+        CityDto city = new CityDto( "Sofia", "someUrl");
+        City existingCity = new City("Sofia2", "someurl");
+        given(cityRepository.findById(any())).willReturn(Optional.of(existingCity));
 
         cityServiceUnderTest.updateCity(city);
 
@@ -56,7 +59,7 @@ class CityServiceTests {
 
     @Test
     void shouldThrowExceptionWhenUpdatingCityWithoutId() {
-        City city = new City( "Sofia", "someUrl");
+        CityDto city = new CityDto( "Sofia", "someUrl");
 
         assertThatThrownBy(() -> cityServiceUnderTest.updateCity(city))
                 .isInstanceOf(IllegalArgumentException.class);
