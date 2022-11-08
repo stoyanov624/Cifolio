@@ -2,13 +2,9 @@ import "../../homeScreen.css"
 import {useEffect, useState} from "react";
 import CityContainer from "../CityContainer/CityContainer";
 import Pager from "../../../../reusableComponents/Pager/Pager";
-import {fetchCities, updateCity} from "../../../../api/cityService";
-
-export interface CityModel {
-    id: number,
-    name: string,
-    photo: string
-}
+import {fetchCities, updateCity} from "../../../../services/cityService/controller";
+import SearchBar from "../../../../reusableComponents/SearchBar/SearchBar";
+import {CityModel} from "../../../../services/cityService/interfaces";
 
 export interface PagingData {
     currentPage: number,
@@ -16,11 +12,14 @@ export interface PagingData {
 }
 
 export default function CitiesContainer () {
+    const INITIAL_PAGE = 0;
     const DEFAULT_PAGE_SIZE = 8;
+    
+    const [searchedCity, setSearchedCity] = useState('');
     const [cities, setCities] = useState<CityModel[]>([]);
     const [pagingData, setPagingData] = useState<PagingData>({
         currentPage: 1,
-        totalPages: 0,
+        totalPages: 1,
     });
 
     const goToPage = async (page: number) => {
@@ -28,20 +27,20 @@ export default function CitiesContainer () {
             ...prevState,
             currentPage: page
         }))
-        const cityData = await fetchCities(page - 1, DEFAULT_PAGE_SIZE);
+        const cityData = await fetchCities(page - 1, DEFAULT_PAGE_SIZE, searchedCity);
         setCities(cityData.content);
     }
 
     useEffect(() => {
-        loadPage();
-    }, []);
+        loadInitialPage();
+    }, [searchedCity]);
 
-    const loadPage = async () => {
-        const cityData = await fetchCities(pagingData.currentPage - 1, DEFAULT_PAGE_SIZE);
+    const loadInitialPage = async () => {
+        const cityData = await fetchCities(INITIAL_PAGE, DEFAULT_PAGE_SIZE, searchedCity);
         setCities(cityData.content);
         setPagingData(prevState => ({
-            ...prevState,
-            totalPages: cityData.totalPages
+            currentPage: 1,
+            totalPages: cityData.totalPages || 1
         }));
     }
 
@@ -67,6 +66,7 @@ export default function CitiesContainer () {
 
     return (
     <div>
+        <SearchBar executeSearch={setSearchedCity}/>
         <div className={"photosContainer"}>
             {cities.map((city, index) =>
                 <CityContainer
@@ -77,11 +77,6 @@ export default function CitiesContainer () {
         )}
         </div>
 
-        <Pager
-            pagingData={pagingData}
-            goToPage={goToPage}
-        />
-
-
+        <Pager pagingData={pagingData} goToPage={goToPage}/>
     </div>)
 }

@@ -1,7 +1,7 @@
 import { TfiClose } from "react-icons/tfi";
 import "./CityUpdateModal.css"
 import {ChangeEvent, FC, FormEvent, SyntheticEvent, useState} from "react";
-import {CityModel} from "../CitiesContainer/CitiesContainer";
+import {CityModel} from "../../../../services/cityService/interfaces";
 
 interface ModalProps {
     cityToUpdate: CityModel
