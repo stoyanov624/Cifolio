@@ -34,15 +34,10 @@ public class CityService {
                 pagingData, cities.getTotalElements());
     }
 
-    public void updateCity(City city) {
-        Optional<City> existingCity = cityRepository.findById((city.getId()));
-
-        if(existingCity.isEmpty()) {
-            throw new IllegalArgumentException("Unable to update! City with ID: " + city.getId() + " not found!");
-        }
-
-        existingCity.get().setName(city.getName());
-        existingCity.get().setPhoto(city.getPhoto());
-        cityRepository.save(existingCity.get());
+    public void updateCity(CityDto city) {
+        cityRepository.findById(city.getId())
+            .map(existingCity -> cityConverter.convertToCityEntity(city))
+            .map(cityRepository::save)
+            .orElseThrow(() -> new IllegalArgumentException("Unable to update! City with ID: " + city.getId() + " not found!"));
     }
 }

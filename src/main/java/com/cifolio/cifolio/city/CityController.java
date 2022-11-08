@@ -30,7 +30,7 @@ public class CityController {
     }
 
     @PutMapping
-    public void updateCity(@RequestBody City city) {
+    public void updateCity(@RequestBody CityDto city) {
         cityService.updateCity(city);
     }
 }
