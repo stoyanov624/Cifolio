@@ -1,8 +1,8 @@
 import {FC, useState} from "react";
 import defaultCityImg from "../../../../assets/default-city-img.jpg"
-import {CityModel} from "../CitiesContainer/CitiesContainer";
 import { BsFillPencilFill } from "react-icons/bs";
 import CityUpdateModal from "../CityUpdateModal/CityUpdateModal";
+import {CityModel} from "../../../../services/cityService/interfaces";
 
 interface PhotoContainerProps {
     city: CityModel,

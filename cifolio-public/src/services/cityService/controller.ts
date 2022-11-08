@@ -1,10 +1,6 @@
 import axios from "axios";
+import {CityModel} from "./interfaces";
 
-interface CityModel {
-    id: number,
-    name: string,
-    photo: string
-}
 
 const fetchCities = async (page: number, pageSize: number, cityName?: string) => {
     return (await axios.get("http://localhost:8080/api/cities", {
