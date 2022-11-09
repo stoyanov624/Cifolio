@@ -1,8 +1,5 @@
 package com.cifolio.cifolio.city;
-
-import com.cifolio.cifolio.dtos.CityDto;
 import com.cifolio.cifolio.model.City;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -10,9 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
 import java.util.Optional;
 
 import static com.cifolio.cifolio.city.CityConstants.DEFAULT_PAGING_DATA;
@@ -45,7 +39,7 @@ class CityServiceTests {
         City city = new City("Sofia", "someUrl");
 
         given(cityRepository.findById(city.getId())).willReturn(Optional.of(city));
-        given(cityRepository.save(any(City.class))).willReturn(city);
+        given(cityRepository.save(any(City.class))).willReturn(mock(City.class));
 
         cityServiceUnderTest.updateCity(city);
 

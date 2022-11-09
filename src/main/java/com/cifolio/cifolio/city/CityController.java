@@ -4,31 +4,24 @@ import com.cifolio.cifolio.converters.CityDtoToEntityConverter;
 import com.cifolio.cifolio.converters.CityEntityToDtoConverter;
 import com.cifolio.cifolio.dtos.CityDto;
 import com.cifolio.cifolio.model.City;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import lombok.AllArgsConstructor;
 
 import java.util.stream.Collectors;
-
 import static com.cifolio.cifolio.city.CityConstants.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("api/cities")
+@AllArgsConstructor
 public class CityController {
     private final CityService cityService;
     private final CityDtoToEntityConverter dtoToCityConverter;
     private final CityEntityToDtoConverter cityToDtoConverter;
-
-    @Autowired
-    public CityController(CityService cityService, CityDtoToEntityConverter dtoToCityConverter, CityEntityToDtoConverter cityToDtoConverter) {
-        this.cityService = cityService;
-        this.dtoToCityConverter = dtoToCityConverter;
-        this.cityToDtoConverter = cityToDtoConverter;
-    }
 
     @GetMapping
     public Page<CityDto> getCitiesPage(
