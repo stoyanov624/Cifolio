@@ -32,7 +32,7 @@ class CityServiceTests {
     private CityService cityServiceUnderTest;
 
     @Test
-    void shouldGetAllCitiesOnPage() {
+    void getCitiesPage() {
         Page<City> cityPage = mock(Page.class);
 
         given(cityRepository.findAll(DEFAULT_PAGING_DATA)).willReturn(cityPage);
@@ -41,12 +41,11 @@ class CityServiceTests {
     }
 
     @Test
-    void shouldUpdateCity() {
-        CityDto city = new CityDto("Sofia2", "someUrl");
-        City existingCity = new City("Sofia", "someUrl");
+    void updateCity() {
+        City city = new City("Sofia", "someUrl");
 
-        given(cityRepository.findById(city.getId())).willReturn(Optional.of(existingCity));
-        given(cityRepository.save(any(City.class))).willReturn(existingCity);
+        given(cityRepository.findById(city.getId())).willReturn(Optional.of(city));
+        given(cityRepository.save(any(City.class))).willReturn(city);
 
         cityServiceUnderTest.updateCity(city);
 
@@ -55,13 +54,13 @@ class CityServiceTests {
                 .save(cityArgumentCaptor.capture());
 
         City capturedCity = cityArgumentCaptor.getValue();
-        assertThat(capturedCity.getName()).isEqualTo(capturedCity.getName());
-        assertThat(capturedCity.getPhoto()).isEqualTo(capturedCity.getPhoto());
+        assertThat(city.getName()).isEqualTo(capturedCity.getName());
+        assertThat(city.getPhoto()).isEqualTo(capturedCity.getPhoto());
     }
 
     @Test
-    void shouldThrowExceptionWhenUpdatingCityWithoutId() {
-        CityDto city = new CityDto( "Sofia", "someUrl");
+    void updateCity_shouldThrowIllegalArgumentExceptionWhenCityNotFound() {
+        City city = new City( "Sofia", "someUrl");
 
         assertThatThrownBy(() -> cityServiceUnderTest.updateCity(city))
                 .isInstanceOf(IllegalArgumentException.class);
