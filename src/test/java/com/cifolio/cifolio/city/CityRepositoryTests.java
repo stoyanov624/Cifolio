@@ -18,6 +18,11 @@ class CityRepositoryTests {
     @Autowired
     private CityRepository underTest;
 
+    @AfterEach
+    void tearDown() {
+        underTest.deleteAll();
+    }
+
     @Test
     void shouldFindCitiesByNameWhenTheyArePresentInDb() {
         City city = new City("Sofia", "someUrl");
@@ -31,10 +36,5 @@ class CityRepositoryTests {
     void shouldNotFindCitiesByNameWhenTheyAreNotPresentInDb() {
         Page<City> citiesPage = underTest.findAllOnPageByNameIsContaining("Sofia", DEFAULT_PAGING_DATA);
         assertThat(citiesPage).extracting("name").doesNotContain("Sofia");
-    }
-
-    @AfterEach
-    void tearDown() {
-        underTest.deleteAll();
     }
 }

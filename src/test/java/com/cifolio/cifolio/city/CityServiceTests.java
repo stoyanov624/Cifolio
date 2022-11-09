@@ -6,8 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -18,34 +20,33 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CityServiceTests {
 
     @Mock
     private CityRepository cityRepository;
-    private CityService cityServiceUnderTest;
 
-    @BeforeEach
-    void setUp() {
-        cityServiceUnderTest = new CityService(cityRepository);
-    }
+    @InjectMocks
+    private CityService cityServiceUnderTest;
 
     @Test
     void shouldGetAllCitiesOnPage() {
-        Pageable pagingData = PageRequest.of(CityConstants.DEFAULT_PAGE, CityConstants.DEFAULT_PAGE_SIZE);
-        cityServiceUnderTest.getCitiesPage("", DEFAULT_PAGING_DATA);
+        Page<City> cityPage = mock(Page.class);
 
-        verify(cityRepository).findAll(pagingData);
+        given(cityRepository.findAll(DEFAULT_PAGING_DATA)).willReturn(cityPage);
+        cityServiceUnderTest.getCitiesPage("", DEFAULT_PAGING_DATA);
+        verify(cityRepository).findAll(DEFAULT_PAGING_DATA);
     }
 
     @Test
     void shouldUpdateCity() {
-        CityDto city = new CityDto( "Sofia", "someUrl");
-        City existingCity = new City("Sofia2", "someurl");
-        given(cityRepository.findById(any())).willReturn(Optional.of(existingCity));
+        CityDto city = new CityDto("Sofia2", "someUrl");
+        City existingCity = new City("Sofia", "someUrl");
+
+        given(cityRepository.findById(city.getId())).willReturn(Optional.of(existingCity));
+        given(cityRepository.save(any(City.class))).willReturn(existingCity);
 
         cityServiceUnderTest.updateCity(city);
 
@@ -54,7 +55,8 @@ class CityServiceTests {
                 .save(cityArgumentCaptor.capture());
 
         City capturedCity = cityArgumentCaptor.getValue();
-        assertThat(capturedCity).isEqualTo(city);
+        assertThat(capturedCity.getName()).isEqualTo(capturedCity.getName());
+        assertThat(capturedCity.getPhoto()).isEqualTo(capturedCity.getPhoto());
     }
 
     @Test
