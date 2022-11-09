@@ -49,26 +49,27 @@ class CityServiceTests {
 
     @Test
     void updateCity() {
-        City city = new City("Sofia", "someUrl");
+        Long id = 1L;
+        City newCity = new City(id, "Sofia234", "someUrl");
+        City existingCity = new City(id,"Sofia", "someUrl");
 
-        given(cityRepository.findById(city.getId())).willReturn(Optional.of(city));
-        given(cityRepository.save(any(City.class))).willReturn(mock(City.class));
-
-        cityServiceUnderTest.updateCity(city);
-
+        given(cityRepository.findById(id)).willReturn(Optional.of(existingCity));
         ArgumentCaptor<City> cityArgumentCaptor = ArgumentCaptor.forClass(City.class);
-        verify(cityRepository)
-                .save(cityArgumentCaptor.capture());
+        given(cityRepository.save(cityArgumentCaptor.capture())).willReturn(newCity);
 
+        cityServiceUnderTest.updateCity(newCity);
         City capturedCity = cityArgumentCaptor.getValue();
-        assertThat(city.getName()).isEqualTo(capturedCity.getName());
-        assertThat(city.getPhoto()).isEqualTo(capturedCity.getPhoto());
+
+        verify(cityRepository).save(capturedCity);
+
+        assertThat(capturedCity).isNotNull();
+        assertThat(newCity.getName()).isEqualTo(capturedCity.getName());
+        assertThat(newCity.getPhoto()).isEqualTo(capturedCity.getPhoto());
     }
 
     @Test
     void updateCity_shouldThrowIllegalArgumentExceptionWhenCityNotFound() {
         City city = new City( "Sofia", "someUrl");
-
         assertThatThrownBy(() -> cityServiceUnderTest.updateCity(city))
                 .isInstanceOf(IllegalArgumentException.class);
 
