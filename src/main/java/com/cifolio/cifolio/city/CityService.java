@@ -18,7 +18,8 @@ public class CityService {
 
     public void updateCity(City city) {
         cityRepository.findById(city.getId())
-            .map(cityRepository::save)
             .orElseThrow(() -> new IllegalArgumentException("Unable to update! City with ID: " + city.getId() + " not found!"));
+
+        cityRepository.save(city);
     }
 }

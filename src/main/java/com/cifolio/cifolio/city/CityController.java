@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
 
@@ -36,7 +38,12 @@ public class CityController {
     }
 
     @PutMapping
-    public void updateCity(@RequestBody CityDto city) {
-        cityService.updateCity(dtoToCityConverter.apply(city));
+    public ResponseEntity updateCity(@RequestBody CityDto city) {
+        try {
+            cityService.updateCity(dtoToCityConverter.apply(city));
+            return ResponseEntity.ok().body("Success!");
+        } catch (Exception error) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error occurred!");
+        }
     }
 }

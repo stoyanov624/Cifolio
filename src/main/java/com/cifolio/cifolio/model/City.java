@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

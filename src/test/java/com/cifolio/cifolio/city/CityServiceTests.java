@@ -7,6 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+
+import java.util.List;
 import java.util.Optional;
 
 import static com.cifolio.cifolio.city.CityConstants.DEFAULT_PAGING_DATA;
@@ -27,11 +30,21 @@ class CityServiceTests {
 
     @Test
     void getCitiesPage() {
-        Page<City> cityPage = mock(Page.class);
+        Page<City> cityPage = new PageImpl<>(List.of(
+                new City(1L, "c1", "c1Url"),
+                new City(2L, "c2", "c2Url")
+        ));
 
         given(cityRepository.findAll(DEFAULT_PAGING_DATA)).willReturn(cityPage);
-        cityServiceUnderTest.getCitiesPage("", DEFAULT_PAGING_DATA);
+        Page<City> fetchedCities = cityServiceUnderTest.getCitiesPage("", DEFAULT_PAGING_DATA);
         verify(cityRepository).findAll(DEFAULT_PAGING_DATA);
+
+        assertThat(cityPage.getContent().size() == fetchedCities.getContent().size());
+
+        for (int i = 0; i < cityPage.getContent().size(); i++) {
+            assertThat(cityPage.getContent().get(i).getName() == fetchedCities.getContent().get(i).getName());
+            assertThat(cityPage.getContent().get(i).getPhoto() == fetchedCities.getContent().get(i).getPhoto());
+        }
     }
 
     @Test
