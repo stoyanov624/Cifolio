@@ -60,7 +60,7 @@ class CityServiceTests {
         cityServiceUnderTest.updateCity(newCity);
         City capturedCity = cityArgumentCaptor.getValue();
 
-        verify(cityRepository).save(capturedCity);
+        verify(cityRepository, times(1)).save(capturedCity);
 
         assertThat(capturedCity).isNotNull();
         assertThat(newCity.getName()).isEqualTo(capturedCity.getName());

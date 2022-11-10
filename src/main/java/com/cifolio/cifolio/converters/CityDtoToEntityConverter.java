@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
 @Component
-public final class CityDtoToEntityConverter implements Function<CityDto, City> {
+public class CityDtoToEntityConverter implements Function<CityDto, City> {
     @Override
     public City apply(CityDto cityDto) {
         return convertToCityEntity(cityDto);
