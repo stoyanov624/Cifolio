@@ -59,9 +59,9 @@ export default function CitiesContainer () {
         setCities(updatedCities);
     }
 
-    const updateSelectedCity = (updatedCity: CityModel) => {
+    const updateSelectedCity = async (updatedCity: CityModel) => {
         modifyCities(updatedCity);
-        updateCity(updatedCity);
+        await updateCity(updatedCity)
     }
 
     return (

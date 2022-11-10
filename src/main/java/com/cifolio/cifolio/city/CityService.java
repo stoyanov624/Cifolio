@@ -1,33 +1,25 @@
 package com.cifolio.cifolio.city;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cifolio.cifolio.model.City;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
+import org.springframework.util.StringUtils;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class CityService {
     private final CityRepository cityRepository;
-    @Autowired
-    public CityService(CityRepository cityRepository) {
-        this.cityRepository = cityRepository;
-    }
+
     public Page<City> getCitiesPage(String name, Pageable pagingData) {
-        return cityRepository.findAllOnPageByNameIsContaining(name, pagingData);
+        return StringUtils.hasText(name) ? cityRepository.findAllOnPageByNameIsContaining(name, pagingData) : cityRepository.findAll(pagingData);
     }
-    public Page<City> getCitiesPage(Pageable pagingData) {
-        return cityRepository.findAll(pagingData);
-    }
+
     public void updateCity(City city) {
-        Optional<City> existingCity = cityRepository.findById((city.getId()));
+        cityRepository.findById(city.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Unable to update! City with ID: " + city.getId() + " not found!"));
 
-        if(existingCity.isEmpty()) {
-            throw new IllegalArgumentException("Unable to update! City with ID: " + city.getId() + " not found!");
-        }
-
-        existingCity.get().setName(city.getName());
-        existingCity.get().setPhoto(city.getPhoto());
-        cityRepository.save(existingCity.get());
+        cityRepository.save(city);
     }
 }
