@@ -1,10 +1,10 @@
 package com.cifolio.cifolio.controller;
 
-import com.cifolio.cifolio.service.CityService;
+import com.cifolio.cifolio.service.city.CityService;
 import com.cifolio.cifolio.converters.CityDtoToEntityConverter;
 import com.cifolio.cifolio.converters.CityEntityToDtoConverter;
 import com.cifolio.cifolio.dto.CityDto;
-import com.cifolio.cifolio.model.City;
+import com.cifolio.cifolio.model.city.City;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

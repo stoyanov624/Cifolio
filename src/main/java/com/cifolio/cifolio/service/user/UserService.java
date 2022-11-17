@@ -1,8 +1,7 @@
-package com.cifolio.cifolio.service;
+package com.cifolio.cifolio.service.user;
 
-import com.cifolio.cifolio.constants.UserConstants;
-import com.cifolio.cifolio.model.Role;
-import com.cifolio.cifolio.model.User;
+import com.cifolio.cifolio.model.user.Role;
+import com.cifolio.cifolio.model.user.User;
 import com.cifolio.cifolio.repository.RoleRepository;
 import com.cifolio.cifolio.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

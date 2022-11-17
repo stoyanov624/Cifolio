@@ -1,6 +1,6 @@
 package com.cifolio.cifolio.converters;
 import com.cifolio.cifolio.dto.RegistrationForm;
-import com.cifolio.cifolio.model.User;
+import com.cifolio.cifolio.model.user.User;
 import org.springframework.stereotype.Component;
 import java.util.function.Function;
 

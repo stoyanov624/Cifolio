@@ -1,7 +1,7 @@
 package com.cifolio.cifolio.converters;
 
 import com.cifolio.cifolio.dto.CityDto;
-import com.cifolio.cifolio.model.City;
+import com.cifolio.cifolio.model.city.City;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;

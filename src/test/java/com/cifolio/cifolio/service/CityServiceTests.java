@@ -1,6 +1,7 @@
 package com.cifolio.cifolio.service;
-import com.cifolio.cifolio.model.City;
+import com.cifolio.cifolio.model.city.City;
 import com.cifolio.cifolio.repository.CityRepository;
+import com.cifolio.cifolio.service.city.CityService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;

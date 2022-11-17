@@ -2,7 +2,7 @@ package com.cifolio.cifolio.controller;
 
 import com.cifolio.cifolio.converters.RegistrationFormToUserEntityConverter;
 import com.cifolio.cifolio.dto.RegistrationForm;
-import com.cifolio.cifolio.service.UserService;
+import com.cifolio.cifolio.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

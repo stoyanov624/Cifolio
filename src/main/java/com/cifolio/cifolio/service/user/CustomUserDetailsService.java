@@ -1,6 +1,6 @@
-package com.cifolio.cifolio.service;
+package com.cifolio.cifolio.service.user;
 
-import com.cifolio.cifolio.model.AuthenticatedUser;
+import com.cifolio.cifolio.model.user.AuthenticatedUser;
 import com.cifolio.cifolio.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

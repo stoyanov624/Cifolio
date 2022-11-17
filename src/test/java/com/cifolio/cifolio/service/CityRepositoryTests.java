@@ -1,6 +1,6 @@
 package com.cifolio.cifolio.service;
 
-import com.cifolio.cifolio.model.City;
+import com.cifolio.cifolio.model.city.City;
 import com.cifolio.cifolio.repository.CityRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package com.cifolio.cifolio.repository;
 
-import com.cifolio.cifolio.model.Role;
+import com.cifolio.cifolio.model.user.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.cifolio.cifolio.model;
+package com.cifolio.cifolio.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,12 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity(name = "users")

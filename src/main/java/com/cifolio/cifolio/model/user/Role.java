@@ -1,4 +1,4 @@
-package com.cifolio.cifolio.model;
+package com.cifolio.cifolio.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

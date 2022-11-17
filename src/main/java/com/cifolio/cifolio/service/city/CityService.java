@@ -1,6 +1,6 @@
-package com.cifolio.cifolio.service;
+package com.cifolio.cifolio.service.city;
 
-import com.cifolio.cifolio.model.City;
+import com.cifolio.cifolio.model.city.City;
 import com.cifolio.cifolio.repository.CityRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
