@@ -8,18 +8,13 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
-    <changeSet id="1_create_cities_table" author="Ivaylo Stoyanov">
-        <createTable tableName="cities">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" primaryKeyName="city_id_pk" />
-            </column>
+    <changeSet id="4_create_user_table" author="Ivaylo Stoyanov">
+        <insert tableName="roles">
+            <column name="name" value="user" />
+        </insert>
 
-            <column name="name" type="varchar(250)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="photo" type="varchar(2048)" defaultValue="">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
+        <insert tableName="roles">
+            <column name="name" value="admin" />
+        </insert>
     </changeSet>
 </databaseChangeLog>

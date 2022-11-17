@@ -8,7 +8,7 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
-    <changeSet id="populate_cities_table_from_csv" author="Ivaylo Stoyanov">
+    <changeSet id="2_populate_cities_table_from_csv" author="Ivaylo Stoyanov">
         <loadData catalogName="cat"
                   commentLineStartsWith="//"
                   encoding="UTF-8"

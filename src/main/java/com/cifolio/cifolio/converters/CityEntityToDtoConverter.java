@@ -1,6 +1,6 @@
 package com.cifolio.cifolio.converters;
 
-import com.cifolio.cifolio.dtos.CityDto;
+import com.cifolio.cifolio.dto.CityDto;
 import com.cifolio.cifolio.model.City;
 import org.springframework.stereotype.Component;
 

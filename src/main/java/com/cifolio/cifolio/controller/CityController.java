@@ -3,7 +3,7 @@ package com.cifolio.cifolio.controller;
 import com.cifolio.cifolio.service.CityService;
 import com.cifolio.cifolio.converters.CityDtoToEntityConverter;
 import com.cifolio.cifolio.converters.CityEntityToDtoConverter;
-import com.cifolio.cifolio.dtos.CityDto;
+import com.cifolio.cifolio.dto.CityDto;
 import com.cifolio.cifolio.model.City;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

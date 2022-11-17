@@ -3,7 +3,7 @@ package com.cifolio.cifolio.service;
 import com.cifolio.cifolio.controller.CityController;
 import com.cifolio.cifolio.converters.CityDtoToEntityConverter;
 import com.cifolio.cifolio.converters.CityEntityToDtoConverter;
-import com.cifolio.cifolio.dtos.CityDto;
+import com.cifolio.cifolio.dto.CityDto;
 import com.cifolio.cifolio.model.City;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
