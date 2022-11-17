@@ -1,4 +1,4 @@
-package com.cifolio.cifolio.city;
+package com.cifolio.cifolio.repository;
 
 import com.cifolio.cifolio.model.City;
 import org.springframework.data.domain.Page;

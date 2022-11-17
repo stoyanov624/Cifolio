@@ -1,5 +1,6 @@
-package com.cifolio.cifolio.city;
+package com.cifolio.cifolio.controller;
 
+import com.cifolio.cifolio.service.CityService;
 import com.cifolio.cifolio.converters.CityDtoToEntityConverter;
 import com.cifolio.cifolio.converters.CityEntityToDtoConverter;
 import com.cifolio.cifolio.dtos.CityDto;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
 
 import java.util.stream.Collectors;
-import static com.cifolio.cifolio.city.CityConstants.*;
+import static com.cifolio.cifolio.constants.CityConstants.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")

@@ -1,4 +1,4 @@
-package com.cifolio.cifolio.city;
+package com.cifolio.cifolio.constants;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
