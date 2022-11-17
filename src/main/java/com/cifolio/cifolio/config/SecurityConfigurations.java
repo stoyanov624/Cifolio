@@ -36,11 +36,13 @@ public class SecurityConfigurations {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.
-                csrf().disable()
+                csrf().disable().headers().frameOptions().disable() // for viewing h2-console
+                .and()
                 .cors().disable()
                 .authorizeRequests(auth -> auth
-                        .mvcMatchers("/register").permitAll()
-                        .mvcMatchers("/login").permitAll()
+                        .mvcMatchers("/api/register").permitAll()
+                        .mvcMatchers("/api/login").permitAll()
+                        .antMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .userDetailsService(customUserDetailsService)
