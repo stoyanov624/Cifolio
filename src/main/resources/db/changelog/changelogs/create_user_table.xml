@@ -8,18 +8,25 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
-    <changeSet id="1_create_cities_table" author="Ivaylo Stoyanov">
-        <createTable tableName="cities">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" primaryKeyName="city_id_pk" />
+    <changeSet id="4_create_user_table" author="Ivaylo Stoyanov">
+        <createTable tableName="users">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"  primaryKeyName="user_id_pk" />
             </column>
 
-            <column name="name" type="varchar(250)">
-                <constraints nullable="false"/>
+            <column name="username" type="varchar(64)">
+                <constraints unique="true" nullable="false"/>
             </column>
-            <column name="photo" type="varchar(2048)" defaultValue="">
-                <constraints nullable="false"/>
+
+            <column name="password" type="varchar(64)">
+                <constraints unique="true" nullable="false"/>
             </column>
+
+            <column name="email" type="varchar(250)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+
+            <column name="role" type="enum('user','admin')"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -1,4 +1,4 @@
-package com.cifolio.cifolio.model;
+package com.cifolio.cifolio.model.city;
 
 import lombok.*;
 

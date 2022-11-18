@@ -1,4 +1,4 @@
-package com.cifolio.cifolio.dtos;
+package com.cifolio.cifolio.dto;
 
 import lombok.*;
 

@@ -1,31 +1,33 @@
-package com.cifolio.cifolio.city;
+package com.cifolio.cifolio.controller;
 
+import com.cifolio.cifolio.service.city.CityService;
 import com.cifolio.cifolio.converters.CityDtoToEntityConverter;
 import com.cifolio.cifolio.converters.CityEntityToDtoConverter;
-import com.cifolio.cifolio.dtos.CityDto;
-import com.cifolio.cifolio.model.City;
+import com.cifolio.cifolio.dto.CityDto;
+import com.cifolio.cifolio.model.city.City;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
 
 import java.util.stream.Collectors;
-import static com.cifolio.cifolio.city.CityConstants.*;
+import static com.cifolio.cifolio.constants.CityConstants.*;
+import static com.cifolio.cifolio.constants.UserConstants.ADMIN_ROLE;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("api/cities")
+@RequestMapping("api")
 @AllArgsConstructor
 public class CityController {
     private final CityService cityService;
     private final CityDtoToEntityConverter dtoToCityConverter;
     private final CityEntityToDtoConverter cityToDtoConverter;
 
-    @GetMapping
+    @GetMapping("/cities")
     public Page<CityDto> getCitiesPage(
             @RequestParam(required = false) String cityName,
             @PageableDefault(size = DEFAULT_PAGE_SIZE) Pageable pagingData) {
@@ -37,7 +39,8 @@ public class CityController {
                         .collect(Collectors.toList()), pagingData, cities.getTotalElements());
     }
 
-    @PutMapping
+    @PreAuthorize("hasAuthority(\"" + ADMIN_ROLE + "\")")
+    @PutMapping("/cities")
     public ResponseEntity updateCity(@RequestBody CityDto city) {
         try {
             cityService.updateCity(dtoToCityConverter.apply(city));

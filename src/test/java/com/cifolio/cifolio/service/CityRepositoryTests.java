@@ -1,13 +1,14 @@
-package com.cifolio.cifolio.city;
+package com.cifolio.cifolio.service;
 
-import com.cifolio.cifolio.model.City;
+import com.cifolio.cifolio.model.city.City;
+import com.cifolio.cifolio.repository.CityRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 
-import static com.cifolio.cifolio.city.CityConstants.DEFAULT_PAGING_DATA;
+import static com.cifolio.cifolio.constants.CityConstants.DEFAULT_PAGING_DATA;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest

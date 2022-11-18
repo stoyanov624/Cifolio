@@ -1,5 +1,7 @@
-package com.cifolio.cifolio.city;
-import com.cifolio.cifolio.model.City;
+package com.cifolio.cifolio.service;
+import com.cifolio.cifolio.model.city.City;
+import com.cifolio.cifolio.repository.CityRepository;
+import com.cifolio.cifolio.service.city.CityService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -12,7 +14,7 @@ import org.springframework.data.domain.PageImpl;
 import java.util.List;
 import java.util.Optional;
 
-import static com.cifolio.cifolio.city.CityConstants.DEFAULT_PAGING_DATA;
+import static com.cifolio.cifolio.constants.CityConstants.DEFAULT_PAGING_DATA;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
