@@ -6,6 +6,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
+import static com.cifolio.cifolio.constants.UserConstants.DEFAULT_USER_ROLE;
+
 @Component
 @RequiredArgsConstructor
 public class RegistrationFormToUserEntityConverter implements Function<RegistrationForm, User> {
@@ -20,6 +22,7 @@ public class RegistrationFormToUserEntityConverter implements Function<Registrat
         user.setUsername(registrationForm.getUsername());
         user.setEmail(registrationForm.getEmail());
         user.setPassword(passwordEncoder.encode(registrationForm.getPassword()));
+        user.setRole(DEFAULT_USER_ROLE);
         return user;
     }
 }

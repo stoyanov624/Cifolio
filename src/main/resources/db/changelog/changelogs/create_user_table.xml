@@ -25,22 +25,8 @@
             <column name="email" type="varchar(250)">
                 <constraints unique="true" nullable="false"/>
             </column>
-        </createTable>
-        
-        <createTable tableName="users_roles">
-            <column name="user_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="role_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
 
-        <addForeignKeyConstraint constraintName="fk_user_id"
-                                 baseTableName="users_roles" baseColumnNames="user_id"
-                                 referencedTableName="users" referencedColumnNames="id" />
-        <addForeignKeyConstraint constraintName="fk_role_id"
-                                 baseTableName="users_roles" baseColumnNames="role_id"
-                                 referencedTableName="roles" referencedColumnNames="id" />
+            <column name="role" type="enum('user','admin')"/>
+        </createTable>
     </changeSet>
 </databaseChangeLog>
