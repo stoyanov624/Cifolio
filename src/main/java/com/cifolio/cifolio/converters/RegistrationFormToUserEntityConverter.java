@@ -1,4 +1,5 @@
 package com.cifolio.cifolio.converters;
+import com.cifolio.cifolio.constants.UserConstants;
 import com.cifolio.cifolio.dto.RegistrationForm;
 import com.cifolio.cifolio.model.user.User;
 import lombok.RequiredArgsConstructor;
@@ -6,7 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
-import static com.cifolio.cifolio.constants.UserConstants.DEFAULT_USER_ROLE;
+import static com.cifolio.cifolio.constants.UserConstants.USER_ROLE;
+
 
 @Component
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class RegistrationFormToUserEntityConverter implements Function<Registrat
         user.setUsername(registrationForm.getUsername());
         user.setEmail(registrationForm.getEmail());
         user.setPassword(passwordEncoder.encode(registrationForm.getPassword()));
-        user.setRole(DEFAULT_USER_ROLE);
+        user.setRole(USER_ROLE);
         return user;
     }
 }

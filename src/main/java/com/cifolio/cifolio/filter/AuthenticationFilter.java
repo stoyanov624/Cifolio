@@ -42,10 +42,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         String accessToken = tokenService.generateToken(authentication);
-        Map<String, String> tokens = new HashMap<>();
-        tokens.put("accessToken", accessToken);
+        Map<String, String> responseBody = new HashMap<>();
+        responseBody.put("accessToken", accessToken);
 
         response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
     }
 }
