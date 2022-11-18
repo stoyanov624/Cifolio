@@ -1,5 +1,7 @@
 package com.cifolio.cifolio.config;
 
+import com.cifolio.cifolio.filter.AuthenticationFilter;
+import com.cifolio.cifolio.service.token.TokenService;
 import com.cifolio.cifolio.service.user.CustomUserDetailsService;
 import com.cifolio.cifolio.utils.JWKS_Builder;
 import com.nimbusds.jose.JOSEException;
@@ -35,6 +37,9 @@ public class SecurityConfigurations {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authManager(), new TokenService(jwtEncoder(jwkSource())));
+        authenticationFilter.setFilterProcessesUrl("/api/login");
+
         return http.
                 csrf().disable().headers().frameOptions().disable() // for viewing h2-console
                 .and()
@@ -47,6 +52,7 @@ public class SecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .userDetailsService(customUserDetailsService)
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .addFilter(authenticationFilter)
                 .build();
 
     }
