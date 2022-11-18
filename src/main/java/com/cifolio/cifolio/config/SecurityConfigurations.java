@@ -25,7 +25,13 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.List;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -43,7 +49,7 @@ public class SecurityConfigurations {
         return http.
                 csrf().disable().headers().frameOptions().disable() // for viewing h2-console
                 .and()
-                .cors().disable()
+                .cors(withDefaults()) // need corsConfigurationSource for this to work.
                 .authorizeRequests(auth -> auth
                         .mvcMatchers("/api/register").permitAll()
                         .mvcMatchers("/api/login").permitAll()
@@ -55,6 +61,15 @@ public class SecurityConfigurations {
                 .addFilter(authenticationFilter)
                 .build();
 
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean

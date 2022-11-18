@@ -18,15 +18,14 @@ import java.util.stream.Collectors;
 import static com.cifolio.cifolio.constants.CityConstants.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("api/cities")
+@RequestMapping("api")
 @AllArgsConstructor
 public class CityController {
     private final CityService cityService;
     private final CityDtoToEntityConverter dtoToCityConverter;
     private final CityEntityToDtoConverter cityToDtoConverter;
 
-    @GetMapping
+    @GetMapping("/cities")
     public Page<CityDto> getCitiesPage(
             @RequestParam(required = false) String cityName,
             @PageableDefault(size = DEFAULT_PAGE_SIZE) Pageable pagingData) {
@@ -38,7 +37,7 @@ public class CityController {
                         .collect(Collectors.toList()), pagingData, cities.getTotalElements());
     }
 
-    @PutMapping
+    @PutMapping("/cities")
     public ResponseEntity updateCity(@RequestBody CityDto city) {
         try {
             cityService.updateCity(dtoToCityConverter.apply(city));
