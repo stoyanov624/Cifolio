@@ -1,6 +1,5 @@
 package com.cifolio.cifolio.filter;
 
-
 import com.cifolio.cifolio.service.token.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -12,13 +11,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -42,10 +39,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         String accessToken = tokenService.generateToken(authentication);
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("accessToken", accessToken);
-
-        response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
+        Cookie userAuthenticationCookie = new Cookie("user-jwt", accessToken);
+        userAuthenticationCookie.setHttpOnly(true);
+        response.addCookie(userAuthenticationCookie);
     }
 }

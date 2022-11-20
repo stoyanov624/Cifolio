@@ -44,6 +44,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfigurations {
     private final CustomUserDetailsService customUserDetailsService;
     private RSAKey rsaKey;
+    private final String[] WHITE_LIST = {"/h2-console/**", "/api/register", "/api/login", "/api/logout"};
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -55,10 +56,8 @@ public class SecurityConfigurations {
                 .and()
                 .cors(withDefaults()) // need corsConfigurationSource for this to work.
                 .authorizeRequests(auth -> auth
-                        .antMatchers("/h2-console/**").permitAll()
-                        .antMatchers("/api/register").permitAll()
-                        .antMatchers("/api/login").permitAll()
-                        .anyRequest().permitAll())
+                        .antMatchers(WHITE_LIST).permitAll()
+                        .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .userDetailsService(customUserDetailsService)
                 .oauth2ResourceServer(oath2 -> {
