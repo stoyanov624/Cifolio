@@ -1,0 +1,58 @@
+.login-form-container {
+    border: dashed 2px black;
+    border-radius: 10px;
+    width: 400px;
+    height: 200px;
+}
+
+.login-form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.login-form > * {
+    margin-top: 20px;
+}
+
+.login-form > input {
+    border-radius: 5px;
+    height: 25px;
+    padding-left: 5px;
+    font-size: 16px;
+    border: dashed 1px black;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.7);
+    transition: 0.2s;
+}
+
+.login-form > input:focus {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+.login-button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-button-container > button {
+    font-size: 16px;
+    padding: 5px 8px;
+    border: dashed 1px black;
+    border-radius: 5px;
+    margin: 0 1em;
+    background: rgba(255, 255, 255, 0.8);
+    transition: 0.2s;
+}
+
+.login-button-container > button:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
+.login-button-container > button:active {
+    transform: scale(.95)
+}

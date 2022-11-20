@@ -1,10 +1,11 @@
-import { useState } from 'react'
 import Home from "./screens/home/Home";
+import Login from "./screens/login/Login";
 
 function App() {
   return (
     <div className="App">
-      <Home></Home>
+      <Login/>
+      {/*<Home/>*/}
     </div>
   )
 }

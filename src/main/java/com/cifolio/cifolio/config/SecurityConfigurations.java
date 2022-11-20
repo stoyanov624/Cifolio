@@ -34,7 +34,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 import static com.cifolio.cifolio.constants.SecurityConstants.JWT_AUTHORITIES_CLAIM_NAME;
-import static com.cifolio.cifolio.constants.UserConstants.ADMIN_ROLE;
 import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -59,7 +58,7 @@ public class SecurityConfigurations {
                         .antMatchers("/h2-console/**").permitAll()
                         .antMatchers("/api/register").permitAll()
                         .antMatchers("/api/login").permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .userDetailsService(customUserDetailsService)
                 .oauth2ResourceServer(oath2 -> {
