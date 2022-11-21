@@ -1,7 +1,8 @@
 import { TfiClose } from "react-icons/tfi";
 import "./CityUpdateModal.css"
-import {ChangeEvent, FC, FormEvent, SyntheticEvent, useState} from "react";
+import {FC, useState} from "react";
 import {CityModel} from "../../../../services/city/interfaces";
+import {updateStateOnInputChange} from "../../../../utils/InputManager";
 
 interface ModalProps {
     cityToUpdate: CityModel
@@ -17,14 +18,6 @@ const CityUpdateModal:FC<ModalProps> = (modalProps) => {
             && cityToUpdate.name.trim()
             && cityToUpdate.photo
             && cityToUpdate.photo.trim();
-    }
-
-    const updateCityState = (event : ChangeEvent) => {
-        const {name, value} = event.target as HTMLInputElement;
-        setCityToUpdate(prevState => ({
-            ...prevState,
-            [name]: value
-        }))
     }
 
     const handleSave = () => {
@@ -45,14 +38,14 @@ const CityUpdateModal:FC<ModalProps> = (modalProps) => {
                     value={cityToUpdate.name.trimStart()}
                     type={"text"}
                     name={"name"}
-                    onChange={updateCityState}
+                    onChange={event => updateStateOnInputChange(event, setCityToUpdate)}
                 />
                 <p>Photo Url</p>
                 <input
                     value={cityToUpdate.photo.trimStart()}
                     type={"text"}
                     name={"photo"}
-                    onChange={updateCityState}
+                    onChange={event => updateStateOnInputChange(event, setCityToUpdate)}
                 />
                 <button disabled={!isValidInput()} onClick={handleSave}>Save</button>
                 {!isValidInput() && <p className={"error-message"}>All fields must be filled!</p>}

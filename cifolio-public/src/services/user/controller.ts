@@ -1,21 +1,11 @@
 import axios from "../axios";
+import {UserLoginCredentials, UserRegisterCredentials} from "./interfaces";
 
-const registrationForm = {
-    username: "user",
-    password: "pass",
-    email: "email"
+const login = async (userCredentials: UserLoginCredentials) => {
+    return (await axios.post("/login", userCredentials)).data;
 }
 
-const loginData = {
-    username: "user",
-    password: "pass"
-}
-
-const login = async (username: string, password: string) => {
-    return (await axios.post("/login", loginData)).data;
-}
-
-const register = async (username: string, email: string, password: string) => {
+const register = async (registrationForm: UserRegisterCredentials) => {
     return (await axios.post("/register", registrationForm)).data;
 }
 

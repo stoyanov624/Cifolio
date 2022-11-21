@@ -5,6 +5,10 @@
     margin-right: 3em;
 }
 
+.search-bar > * {
+    color: rgb(250, 247, 237);
+}
+
 .search-bar > input {
     background-color: transparent;
     border-radius: 5px;
@@ -16,12 +20,15 @@
 }
 
 .search-bar > input::placeholder {
-    color: white;
     font-size: 14px;
+    color: rgb(250, 247, 237);
+}
+
+.search-bar > input:focus::placeholder {
+    color: transparent;
 }
 
 .search-icon {
     position: absolute;
     right: 3.5em;
-    color: rgb(250, 247, 237);
 }
