@@ -1,11 +1,11 @@
-.login-form-container {
+.signing-form-container {
     border: dashed 2px black;
     border-radius: 10px;
     width: 400px;
     height: 200px;
 }
 
-.login-form {
+.signing-form {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -15,11 +15,11 @@
     background: rgba(106, 118, 125, 0.6);
 }
 
-.login-form > * {
+.signing-form > * {
     margin-top: 20px;
 }
 
-.login-form > input {
+.signing-form > input {
     border-radius: 5px;
     height: 25px;
     padding-left: 5px;
@@ -30,17 +30,17 @@
     transition: 0.2s;
 }
 
-.login-form > input:focus {
+.signing-form > input:focus {
     background: rgba(255, 255, 255, 1);
     transform: scale(1.1);
 }
 
-.login-button-container {
+.signing-button-container {
     display: flex;
     justify-content: space-between;
 }
 
-.login-button-container > button {
+.signing-button-container > button {
     font-size: 16px;
     padding: 5px 8px;
     border: dashed 1px black;
@@ -50,10 +50,10 @@
     transition: 0.2s;
 }
 
-.login-button-container > button:hover {
+.signing-button-container > button:hover {
     background: rgba(255, 255, 255, 1);
 }
 
-.login-button-container > button:active {
+.signing-button-container > button:active {
     transform: scale(.95)
 }

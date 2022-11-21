@@ -1,11 +1,11 @@
 import {FormEvent, useState} from "react";
-import "./Login.css";
+import "./Signing.css";
 import {useNavigate} from "react-router-dom";
 import {login} from "../../services/user/controller";
 import { UserLoginCredentials } from "../../services/user/interfaces";
 import {updateStateOnInputChange} from "../../utils/InputManager";
 
-export default function Login() {
+export default function SignIn() {
     const navigate = useNavigate();
     const [userCredentials, setUserCredentials] = useState({
         username: '',
@@ -26,8 +26,12 @@ export default function Login() {
         }
     }
 
-    return (<div className={"login-form-container center"}>
-            <form className={"login-form"} onSubmit={handleSubmit}>
+    const goToRegisterPage = () => {
+        navigate('/register');
+    }
+
+    return (<div className={"signing-form-container center"}>
+            <form className={"signing-form"} onSubmit={handleSubmit}>
                 {errorMessage && <p className={'error-message bold'}>{errorMessage}</p>}
                 <input
                     placeholder={"Username"}
@@ -44,9 +48,9 @@ export default function Login() {
                     name={"password"}
                     onChange={event => updateStateOnInputChange(event, setUserCredentials)}
                 />
-                <div className={"login-button-container"}>
+                <div className={"signing-button-container"}>
                     <button className={"clickable"} type={"submit"}>Login</button>
-                    <button className={"clickable"} type={"button"}>Register</button>
+                    <button onClick={goToRegisterPage} className={"clickable"} type={"button"}>Register</button>
                 </div>
             </form>
         </div>
