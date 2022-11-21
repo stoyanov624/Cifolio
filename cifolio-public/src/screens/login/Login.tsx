@@ -11,19 +11,24 @@ export default function Login() {
         username: '',
         password: ''} as UserLoginCredentials
     );
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (event : FormEvent) => {
         event.preventDefault();
         try {
             await login(userCredentials);
+            setErrorMessage('');
             navigate("/home", {replace: true});
         } catch (error : any) {
-            console.log("Error in login!");
+            if (error.response.status === 401) {
+                setErrorMessage('Wrong username or password!');
+            }
         }
     }
 
     return (<div className={"login-form-container center"}>
             <form className={"login-form"} onSubmit={handleSubmit}>
+                {errorMessage && <p className={'error-message bold'}>{errorMessage}</p>}
                 <input
                     placeholder={"Username"}
                     type={"text"}

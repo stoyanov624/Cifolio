@@ -14,8 +14,12 @@ body {
 }
 
 .error-message {
-  color: #ff0000;
+  color: #ff4050;
   font-size: 14px;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 input:focus {
