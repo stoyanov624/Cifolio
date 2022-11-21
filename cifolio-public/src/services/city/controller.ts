@@ -1,12 +1,8 @@
-import axios from "axios";
+import axios from "../axios";
 import {CityModel} from "./interfaces";
 
-const citiesController = axios.create({
-    baseURL: "http://localhost:8080/api/cities",
-})
-
 const fetchCities = async (page: number, pageSize: number, cityName?: string) => {
-    return (await citiesController.get("/", {
+    return (await axios.get("/cities", {
         params: {
             cityName: cityName,
             page: page,
@@ -16,7 +12,7 @@ const fetchCities = async (page: number, pageSize: number, cityName?: string) =>
 }
 
 const updateCity = async (cityToUpdate: CityModel) => {
-    return (await citiesController.put("/", cityToUpdate))
+    return (await axios.put("/cities", cityToUpdate))
 }
 
 export {

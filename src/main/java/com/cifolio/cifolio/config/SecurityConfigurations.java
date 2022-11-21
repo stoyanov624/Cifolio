@@ -31,10 +31,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.cifolio.cifolio.constants.SecurityConstants.JWT_AUTHORITIES_CLAIM_NAME;
-import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -51,17 +51,19 @@ public class SecurityConfigurations {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authManager(), new TokenService(jwtEncoder(jwkSource())));
         authenticationFilter.setFilterProcessesUrl("/api/login");
 
-        return http.
-                csrf().disable().headers().frameOptions().disable() // for viewing h2-console
+        return http
+                .csrf().disable().headers().frameOptions().disable() // for viewing h2-console
                 .and()
-                .cors(withDefaults()) // need corsConfigurationSource for this to work.
+                .cors() // need corsConfigurationSource for this to work.
+                .and()
                 .authorizeRequests(auth -> auth
                         .antMatchers(WHITE_LIST).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .userDetailsService(customUserDetailsService)
                 .oauth2ResourceServer(oath2 -> {
-                    oath2.jwt()
+                    oath2
+                    .jwt()
                     .jwtAuthenticationConverter(authenticationConverter());
                 })
                 .addFilter(authenticationFilter)
@@ -82,7 +84,29 @@ public class SecurityConfigurations {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000/"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedMethods(Arrays.asList(
+                "GET",
+                "POST",
+                "OPTIONS",
+                "DELETE",
+                "PUT")
+        );
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Content-Type",
+                "content-type",
+                "x-requested-with",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Allow-Headers",
+                "x-auth-token",
+                "x-app-id",
+                "Origin",
+                "Accept",
+                "X-Requested-With",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers")
+        );
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

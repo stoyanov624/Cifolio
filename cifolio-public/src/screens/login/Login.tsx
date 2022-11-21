@@ -1,10 +1,14 @@
 import {FormEvent} from "react";
 import "./Login.css";
+import {fetchCities} from "../../services/city/controller";
+import {login, register} from "../../services/user/controller";
 
 export default function Login() {
-    const handleSubmit = (event : FormEvent) => {
+    const handleSubmit = async (event : FormEvent) => {
         event.preventDefault();
-        console.log("Log in!")
+        await register("user", "user", "pass");
+        await login("user", "pass");
+        await fetchCities(0, 12);
     }
 
     return (<div className={"login-form-container center"}>

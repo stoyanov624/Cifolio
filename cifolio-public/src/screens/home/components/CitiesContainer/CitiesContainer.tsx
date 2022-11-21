@@ -2,9 +2,9 @@ import "../../homeScreen.css"
 import {useEffect, useState} from "react";
 import CityContainer from "../CityContainer/CityContainer";
 import Pager from "../../../../reusableComponents/Pager/Pager";
-import {fetchCities, updateCity} from "../../../../services/cityService/controller";
+import {fetchCities, updateCity} from "../../../../services/city/controller";
 import SearchBar from "../../../../reusableComponents/SearchBar/SearchBar";
-import {CityModel} from "../../../../services/cityService/interfaces";
+import {CityModel} from "../../../../services/city/interfaces";
 
 export interface PagingData {
     currentPage: number,
