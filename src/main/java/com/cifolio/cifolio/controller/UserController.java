@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.cifolio.cifolio.constants.SecurityConstants.JWT_ACCESS_TOKEN_NAME;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")
@@ -33,7 +35,7 @@ public class UserController {
     private ResponseEntity<Void> logout() {
         try {
             ResponseCookie deleteSpringCookie = ResponseCookie
-                    .from("user-jwt", null)
+                    .from(JWT_ACCESS_TOKEN_NAME, null)
                     .build();
 
             return ResponseEntity

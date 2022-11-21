@@ -1,6 +1,7 @@
 package com.cifolio.cifolio.config;
 
 import com.cifolio.cifolio.filter.AuthenticationFilter;
+import com.cifolio.cifolio.filter.AuthorizationFilter;
 import com.cifolio.cifolio.service.token.TokenService;
 import com.cifolio.cifolio.service.user.CustomUserDetailsService;
 import com.cifolio.cifolio.utils.JWKS_Builder;
@@ -27,6 +28,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -67,6 +69,7 @@ public class SecurityConfigurations {
                     .jwtAuthenticationConverter(authenticationConverter());
                 })
                 .addFilter(authenticationFilter)
+                .addFilterBefore(new AuthorizationFilter(jwtDecoder()), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

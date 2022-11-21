@@ -19,4 +19,8 @@ const register = async (username: string, email: string, password: string) => {
     return (await axios.post("/register", registrationForm)).data;
 }
 
-export {login, register}
+const logout = async () => {
+    return (await axios.delete("/logout")).data;
+}
+
+export {login, register, logout}

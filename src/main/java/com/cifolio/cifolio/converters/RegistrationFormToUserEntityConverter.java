@@ -1,5 +1,4 @@
 package com.cifolio.cifolio.converters;
-import com.cifolio.cifolio.constants.UserConstants;
 import com.cifolio.cifolio.dto.RegistrationForm;
 import com.cifolio.cifolio.model.user.User;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 import {FormEvent} from "react";
 import "./Login.css";
 import {fetchCities} from "../../services/city/controller";
-import {login, register} from "../../services/user/controller";
+import {login, logout, register} from "../../services/user/controller";
 
 export default function Login() {
     const handleSubmit = async (event : FormEvent) => {

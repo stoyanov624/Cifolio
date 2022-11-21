@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+import static com.cifolio.cifolio.constants.SecurityConstants.JWT_ACCESS_TOKEN_NAME;
+
 @RequiredArgsConstructor
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
@@ -39,8 +41,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         String accessToken = tokenService.generateToken(authentication);
-        Cookie userAuthenticationCookie = new Cookie("user-jwt", accessToken);
+        Cookie userAuthenticationCookie = new Cookie(JWT_ACCESS_TOKEN_NAME, accessToken);
         userAuthenticationCookie.setHttpOnly(true);
+        userAuthenticationCookie.setMaxAge(3600);
         response.addCookie(userAuthenticationCookie);
     }
 }
