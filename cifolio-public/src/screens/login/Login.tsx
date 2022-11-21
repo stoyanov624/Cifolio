@@ -1,14 +1,14 @@
 import {FormEvent} from "react";
 import "./Login.css";
-import {fetchCities} from "../../services/city/controller";
-import {login, logout, register} from "../../services/user/controller";
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
+    const navigate = useNavigate();
+
     const handleSubmit = async (event : FormEvent) => {
         event.preventDefault();
-        await register("user", "user", "pass");
-        await login("user", "pass");
-        await fetchCities(0, 12);
+        // if user credentials are fine go to ->
+        navigate("/home", {replace: true});
     }
 
     return (<div className={"login-form-container center"}>
