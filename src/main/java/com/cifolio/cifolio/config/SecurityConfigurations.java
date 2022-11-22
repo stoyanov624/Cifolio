@@ -1,6 +1,7 @@
 package com.cifolio.cifolio.config;
 
 import com.cifolio.cifolio.filter.AuthenticationFilter;
+import com.cifolio.cifolio.filter.AuthorizationFilter;
 import com.cifolio.cifolio.service.token.TokenService;
 import com.cifolio.cifolio.service.user.CustomUserDetailsService;
 import com.cifolio.cifolio.utils.JWKS_Builder;
@@ -27,15 +28,15 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.cifolio.cifolio.constants.SecurityConstants.JWT_AUTHORITIES_CLAIM_NAME;
-import static com.cifolio.cifolio.constants.UserConstants.ADMIN_ROLE;
-import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -45,28 +46,30 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfigurations {
     private final CustomUserDetailsService customUserDetailsService;
     private RSAKey rsaKey;
+    private final String[] WHITE_LIST = {"/h2-console/**", "/api/register", "/api/login", "/api/logout"};
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authManager(), new TokenService(jwtEncoder(jwkSource())));
         authenticationFilter.setFilterProcessesUrl("/api/login");
 
-        return http.
-                csrf().disable().headers().frameOptions().disable() // for viewing h2-console
+        return http
+                .csrf().disable().headers().frameOptions().disable() // for viewing h2-console
                 .and()
-                .cors(withDefaults()) // need corsConfigurationSource for this to work.
+                .cors() // need corsConfigurationSource for this to work.
+                .and()
                 .authorizeRequests(auth -> auth
-                        .antMatchers("/h2-console/**").permitAll()
-                        .antMatchers("/api/register").permitAll()
-                        .antMatchers("/api/login").permitAll()
+                        .antMatchers(WHITE_LIST).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .userDetailsService(customUserDetailsService)
                 .oauth2ResourceServer(oath2 -> {
-                    oath2.jwt()
+                    oath2
+                    .jwt()
                     .jwtAuthenticationConverter(authenticationConverter());
                 })
                 .addFilter(authenticationFilter)
+                .addFilterBefore(new AuthorizationFilter(jwtDecoder()), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
@@ -84,7 +87,29 @@ public class SecurityConfigurations {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000/"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedMethods(Arrays.asList(
+                "GET",
+                "POST",
+                "OPTIONS",
+                "DELETE",
+                "PUT")
+        );
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Content-Type",
+                "content-type",
+                "x-requested-with",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Allow-Headers",
+                "x-auth-token",
+                "x-app-id",
+                "Origin",
+                "Accept",
+                "X-Requested-With",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers")
+        );
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

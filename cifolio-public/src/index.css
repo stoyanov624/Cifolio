@@ -14,10 +14,21 @@ body {
 }
 
 .error-message {
-  color: #ff0000;
+  color: #ff4050;
   font-size: 14px;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 input:focus {
   outline: none;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
 }

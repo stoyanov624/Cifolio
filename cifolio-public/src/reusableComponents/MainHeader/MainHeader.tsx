@@ -1,5 +1,4 @@
-import "../../homeScreen.css"
-
+import "./MainHeader.css"
 export default function MainHeader() {
     return (
         <div className={"mainHeader"}>
