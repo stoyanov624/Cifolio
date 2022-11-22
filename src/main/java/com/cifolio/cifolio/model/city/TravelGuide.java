@@ -34,4 +34,9 @@ public class TravelGuide {
     public TravelGuide(String name) {
         this.name = name;
     }
+
+    public TravelGuide addCity(City city) {
+        cities.add(city);
+        return this;
+    }
 }

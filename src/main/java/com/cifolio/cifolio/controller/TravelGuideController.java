@@ -15,15 +15,28 @@ import lombok.RequiredArgsConstructor;
 public class TravelGuideController {
     private final TravelGuideService travelGuideService;
 
+    @PutMapping("/guides" )
+    public ResponseEntity addCityToGuide(
+            @RequestParam() Long guideId,
+            @RequestParam() Long cityId) {
+        try {
+            travelGuideService.addCityToGuide(guideId, cityId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            return ResponseEntity.badRequest().body("Unable to add city to guide!");
+        }
+    }
+
     @PostMapping("/guides" )
-    public ResponseEntity<String> createNewGuide(@RequestBody() TravelGuideDto guideDto) {
+    public ResponseEntity createNewGuide(@RequestBody() TravelGuideDto guideDto) {
         try {
             TravelGuide guideToCreate = new TravelGuide(guideDto.getName());
             travelGuideService.createTravelGuide(guideToCreate);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.info(e.getMessage());
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Unable to create new guide!");
         }
     }
 }
