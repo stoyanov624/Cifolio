@@ -4,6 +4,7 @@ import com.cifolio.cifolio.dto.CityDto;
 import com.cifolio.cifolio.model.city.City;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.function.Function;
 
 @Component
@@ -14,6 +15,6 @@ public class CityDtoToEntityConverter implements Function<CityDto, City> {
     }
 
     private City convertToCityEntity(CityDto city) {
-        return new City(city.getId(), city.getName(), city.getPhoto());
+        return new City(city.getId(), city.getName(), city.getPhoto(), new HashSet<>());
     }
 }

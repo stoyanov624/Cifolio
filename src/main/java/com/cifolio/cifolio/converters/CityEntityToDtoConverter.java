@@ -4,6 +4,7 @@ import com.cifolio.cifolio.dto.CityDto;
 import com.cifolio.cifolio.model.city.City;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.function.Function;
 
 @Component

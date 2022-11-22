@@ -8,7 +8,7 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
-    <changeSet id="5_create_travel_guides_table" author="Ivaylo Stoyanov">
+    <changeSet id="4_create_travel_guides_table" author="Ivaylo Stoyanov">
         <createTable tableName="travel_guides">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" primaryKeyName="travel_guide_id_pk" />
