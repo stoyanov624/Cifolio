@@ -1,9 +1,9 @@
 package com.cifolio.cifolio.controller;
 
 import com.cifolio.cifolio.service.city.CityService;
-import com.cifolio.cifolio.converters.CityDtoToEntityConverter;
-import com.cifolio.cifolio.converters.CityEntityToDtoConverter;
-import com.cifolio.cifolio.dto.CityDto;
+import com.cifolio.cifolio.converters.city.CityDtoToEntityConverter;
+import com.cifolio.cifolio.converters.city.CityEntityToDtoConverter;
+import com.cifolio.cifolio.dto.city.CityDto;
 import com.cifolio.cifolio.model.city.City;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,25 +28,28 @@ public class CityController {
     private final CityEntityToDtoConverter cityToDtoConverter;
 
     @GetMapping("/cities")
-    public Page<CityDto> getCitiesPage(
+    public ResponseEntity<Page<CityDto>> getCitiesPage(
             @RequestParam(required = false) String cityName,
             @PageableDefault(size = DEFAULT_PAGE_SIZE) Pageable pagingData) {
         Page<City> cities = cityService.getCitiesPage(cityName, pagingData);
-        return new PageImpl<>(
-                cities.getContent()
-                        .stream()
-                        .map(cityToDtoConverter)
-                        .collect(Collectors.toList()), pagingData, cities.getTotalElements());
+        Page<CityDto> cityPagingData = new PageImpl<>(cities
+                .getContent()
+                .stream()
+                .map(cityToDtoConverter)
+                .collect(Collectors.toList()), pagingData, cities.getTotalElements()
+        );
+
+        return ResponseEntity.ok().body(cityPagingData);
     }
 
     @PreAuthorize("hasAuthority(\"" + ADMIN_ROLE + "\")")
     @PutMapping("/cities")
-    public ResponseEntity updateCity(@RequestBody CityDto city) {
+    public ResponseEntity<Void> updateCity(@RequestBody CityDto city) {
         try {
             cityService.updateCity(dtoToCityConverter.apply(city));
-            return ResponseEntity.ok().body("Success!");
+            return ResponseEntity.ok().build();
         } catch (Exception error) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error occurred!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 }

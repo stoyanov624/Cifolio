@@ -1,4 +1,4 @@
-package com.cifolio.cifolio.dto;
+package com.cifolio.cifolio.dto.user;
 
 import lombok.Data;
 

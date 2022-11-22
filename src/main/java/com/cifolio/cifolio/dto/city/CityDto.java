@@ -1,9 +1,8 @@
-package com.cifolio.cifolio.dto;
+package com.cifolio.cifolio.dto.city;
 
 import lombok.*;
 
 @AllArgsConstructor
-@Setter
 @Getter
 public class CityDto {
     private Long id;

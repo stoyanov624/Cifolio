@@ -1,5 +1,5 @@
-package com.cifolio.cifolio.converters;
-import com.cifolio.cifolio.dto.RegistrationForm;
+package com.cifolio.cifolio.converters.user;
+import com.cifolio.cifolio.dto.user.RegistrationForm;
 import com.cifolio.cifolio.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

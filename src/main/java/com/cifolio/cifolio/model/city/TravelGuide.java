@@ -30,4 +30,8 @@ public class TravelGuide {
             inverseJoinColumns = { @JoinColumn(name = "city_id") }
     )
     Set<City> cities = new HashSet<>();
+
+    public TravelGuide(String name) {
+        this.name = name;
+    }
 }

@@ -1,7 +1,7 @@
 package com.cifolio.cifolio.controller;
 
-import com.cifolio.cifolio.converters.RegistrationFormToUserEntityConverter;
-import com.cifolio.cifolio.dto.RegistrationForm;
+import com.cifolio.cifolio.converters.user.RegistrationFormToUserEntityConverter;
+import com.cifolio.cifolio.dto.user.RegistrationForm;
 import com.cifolio.cifolio.service.user.UserService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
