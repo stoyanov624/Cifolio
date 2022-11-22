@@ -2,7 +2,7 @@ import {FormEvent, useState} from "react";
 import "./Signing.css";
 import {useNavigate} from "react-router-dom";
 import {login} from "../../services/user/controller";
-import { UserLoginCredentials } from "../../services/user/interfaces";
+import {User, UserLoginCredentials} from "../../services/user/interfaces";
 import {updateStateOnInputChange} from "../../utils/InputManager";
 
 export default function SignIn() {
@@ -16,7 +16,8 @@ export default function SignIn() {
     const handleSubmit = async (event : FormEvent) => {
         event.preventDefault();
         try {
-            await login(userCredentials);
+            const user : User = await login(userCredentials);
+            localStorage.setItem('user', JSON.stringify(user));
             setErrorMessage('');
             navigate("/home", {replace: true});
         } catch (error : any) {

@@ -7,7 +7,13 @@ interface UserRegisterCredentials extends UserLoginCredentials {
     email: string;
 }
 
+interface User {
+    username: string,
+    role: string
+}
+
 export type {
     UserLoginCredentials,
-    UserRegisterCredentials
+    UserRegisterCredentials,
+    User
 }
