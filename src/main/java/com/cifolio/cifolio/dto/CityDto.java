@@ -1,9 +1,6 @@
 package com.cifolio.cifolio.dto;
 
-import com.cifolio.cifolio.model.city.TravelGuide;
 import lombok.*;
-
-import java.util.Set;
 
 @AllArgsConstructor
 @Setter

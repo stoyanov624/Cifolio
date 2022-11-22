@@ -5,6 +5,7 @@ import com.cifolio.cifolio.converters.CityDtoToEntityConverter;
 import com.cifolio.cifolio.converters.CityEntityToDtoConverter;
 import com.cifolio.cifolio.dto.CityDto;
 import com.cifolio.cifolio.model.city.City;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -13,15 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import lombok.AllArgsConstructor;
 
 import java.util.stream.Collectors;
 import static com.cifolio.cifolio.constants.CityConstants.*;
 import static com.cifolio.cifolio.constants.UserConstants.ADMIN_ROLE;
 
 @RestController
-@RequestMapping("api")
-@AllArgsConstructor
+@RequestMapping("/api")
+@RequiredArgsConstructor
 public class CityController {
     private final CityService cityService;
     private final CityDtoToEntityConverter dtoToCityConverter;
