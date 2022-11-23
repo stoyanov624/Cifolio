@@ -1,8 +1,7 @@
 package com.cifolio.cifolio.controller;
 
+import com.cifolio.cifolio.mapper.city.CityMapper;
 import com.cifolio.cifolio.service.city.CityService;
-import com.cifolio.cifolio.converters.city.CityDtoToEntityConverter;
-import com.cifolio.cifolio.converters.city.CityEntityToDtoConverter;
 import com.cifolio.cifolio.dto.city.CityDto;
 import com.cifolio.cifolio.model.city.City;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.stream.Collectors;
 import static com.cifolio.cifolio.constants.CityConstants.*;
 import static com.cifolio.cifolio.constants.UserConstants.ADMIN_ROLE;
 
@@ -24,19 +22,17 @@ import static com.cifolio.cifolio.constants.UserConstants.ADMIN_ROLE;
 @RequiredArgsConstructor
 public class CityController {
     private final CityService cityService;
-    private final CityDtoToEntityConverter dtoToCityConverter;
-    private final CityEntityToDtoConverter cityToDtoConverter;
+    private final CityMapper cityMapper;
 
     @GetMapping("/cities")
     public ResponseEntity<Page<CityDto>> getCitiesPage(
             @RequestParam(required = false) String cityName,
             @PageableDefault(size = DEFAULT_PAGE_SIZE) Pageable pagingData) {
         Page<City> cities = cityService.getCitiesPage(cityName, pagingData);
-        Page<CityDto> cityPagingData = new PageImpl<>(cities
-                .getContent()
-                .stream()
-                .map(cityToDtoConverter)
-                .collect(Collectors.toList()), pagingData, cities.getTotalElements()
+        Page<CityDto> cityPagingData = new PageImpl<>(
+                cityMapper.mapCityEntitiesToDtos(cities.getContent()),
+                pagingData,
+                cities.getTotalElements()
         );
 
         return ResponseEntity.ok().body(cityPagingData);
@@ -46,7 +42,7 @@ public class CityController {
     @PutMapping("/cities")
     public ResponseEntity<Void> updateCity(@RequestBody CityDto city) {
         try {
-            cityService.updateCity(dtoToCityConverter.apply(city));
+            cityService.updateCity(cityMapper.mapCityDtoToEntity(city));
             return ResponseEntity.ok().build();
         } catch (Exception error) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

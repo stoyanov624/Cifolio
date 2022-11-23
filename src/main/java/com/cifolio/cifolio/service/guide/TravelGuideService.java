@@ -4,11 +4,9 @@ import com.cifolio.cifolio.model.city.City;
 import com.cifolio.cifolio.model.city.TravelGuide;
 import com.cifolio.cifolio.repository.CityRepository;
 import com.cifolio.cifolio.repository.TravelGuideRepository;
-import lombok.RequiredArgsConstructor;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.NoSuchElementException;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

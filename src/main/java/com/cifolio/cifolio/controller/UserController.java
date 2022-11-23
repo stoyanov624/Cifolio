@@ -1,7 +1,7 @@
 package com.cifolio.cifolio.controller;
 
-import com.cifolio.cifolio.converters.user.RegistrationFormToUserEntityConverter;
-import com.cifolio.cifolio.dto.user.RegistrationForm;
+import com.cifolio.cifolio.converters.user.UserDtoToUserEntityConverter;
+import com.cifolio.cifolio.dto.user.UserDto;
 import com.cifolio.cifolio.service.user.UserService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -18,12 +18,12 @@ import static com.cifolio.cifolio.constants.SecurityConstants.JWT_ACCESS_TOKEN_N
 @Slf4j
 public class UserController {
     private final UserService userService;
-    private final RegistrationFormToUserEntityConverter registrationFormToUserEntityConverter;
+    private final UserDtoToUserEntityConverter userDtoToUserEntityConverter;
 
     @PostMapping("/register")
-    private ResponseEntity<String> registerUser(@RequestBody RegistrationForm registrationForm) {
+    private ResponseEntity<String> registerUser(@RequestBody UserDto registrationForm) {
         try {
-            userService.registerUser(registrationFormToUserEntityConverter.apply(registrationForm));
+            userService.registerUser(userDtoToUserEntityConverter.apply(registrationForm));
             return ResponseEntity.ok().body("Successful registration!");
         } catch (Exception e) {
             log.info(e.getMessage());
@@ -35,7 +35,7 @@ public class UserController {
     private ResponseEntity<Void> logout() {
         try {
             ResponseCookie deleteSpringCookie = ResponseCookie
-                    .from(JWT_ACCESS_TOKEN_NAME, null)
+                    .from(JWT_ACCESS_TOKEN_NAME, "")
                     .build();
 
             return ResponseEntity
