@@ -1,8 +1,14 @@
 package com.cifolio.cifolio.model.city;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "cities")
@@ -10,7 +16,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +26,10 @@ public class City {
 
     @Column
     private String photo;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "cities")
+    private Set<TravelGuide> guides = new HashSet<>();
 
     public City(String name, String photo) {
         this.name = name;

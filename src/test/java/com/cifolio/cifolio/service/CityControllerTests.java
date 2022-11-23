@@ -1,9 +1,9 @@
 package com.cifolio.cifolio.service;
 
 import com.cifolio.cifolio.controller.CityController;
-import com.cifolio.cifolio.converters.CityDtoToEntityConverter;
-import com.cifolio.cifolio.converters.CityEntityToDtoConverter;
-import com.cifolio.cifolio.dto.CityDto;
+import com.cifolio.cifolio.converters.city.CityDtoToEntityConverter;
+import com.cifolio.cifolio.converters.city.CityEntityToDtoConverter;
+import com.cifolio.cifolio.dto.city.CityDto;
 import com.cifolio.cifolio.model.city.City;
 import com.cifolio.cifolio.service.city.CityService;
 import com.fasterxml.jackson.databind.ObjectMapper;
