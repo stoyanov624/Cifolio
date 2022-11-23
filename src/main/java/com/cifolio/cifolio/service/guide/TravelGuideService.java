@@ -4,6 +4,8 @@ import com.cifolio.cifolio.model.city.City;
 import com.cifolio.cifolio.model.city.TravelGuide;
 import com.cifolio.cifolio.repository.CityRepository;
 import com.cifolio.cifolio.repository.TravelGuideRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +28,9 @@ public class TravelGuideService {
                 .map(guide -> guide.addCity(city))
                 .map(travelGuideRepository::save)
                 .orElseThrow(() -> new NoSuchElementException("Guide not found!"));
+    }
+
+    public Page<TravelGuide> getGuidePage(Pageable pagingData) {
+        return travelGuideRepository.findAll(pagingData);
     }
 }
