@@ -1,12 +1,13 @@
 package com.cifolio.cifolio.dto.guide;
 
+import java.util.List;
 import com.cifolio.cifolio.dto.city.CityDto;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import java.util.Set;
-
-@Data
+@Getter
+@AllArgsConstructor
 public class TravelGuideDto {
     private String name;
-    private Set<CityDto> cities;
+    private List<CityDto> cities;
 }

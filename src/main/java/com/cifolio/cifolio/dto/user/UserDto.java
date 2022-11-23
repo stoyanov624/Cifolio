@@ -1,10 +1,10 @@
 package com.cifolio.cifolio.dto.user;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@Builder
+@AllArgsConstructor
 public class UserDto {
     private String username;
     private String password;
