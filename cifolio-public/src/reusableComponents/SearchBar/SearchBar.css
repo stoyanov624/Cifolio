@@ -1,4 +1,5 @@
 .search-bar {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -30,5 +31,5 @@
 
 .search-icon {
     position: absolute;
-    right: 3.5em;
+    margin-right: 5px;
 }

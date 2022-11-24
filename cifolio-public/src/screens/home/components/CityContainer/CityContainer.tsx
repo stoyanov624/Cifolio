@@ -25,6 +25,7 @@ const CityContainer:FC<PhotoContainerProps> = (photoContainerProps) => {
                 </div>
                 <img
                     src={photoContainerProps.city.photo}
+                    loading={"eager"}
                     onError={event => handleImageNotLoading(event.target as HTMLImageElement)}
                     alt={'Missing photo!'}/>
             </div>
