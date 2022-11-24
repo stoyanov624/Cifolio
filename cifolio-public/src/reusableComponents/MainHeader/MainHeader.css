@@ -1,5 +1,5 @@
 .mainHeader {
-    width: fit-content;
+    width: 5em;
     padding: 0 5%;
     margin: auto;
     height: 75px;
@@ -10,4 +10,39 @@
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     color: rgb(250, 247, 237);
+}
+
+.mainHeader.wide {
+    width: 80%;
+}
+
+.navigationBar {
+    display: flex;
+    position: absolute;
+    left: 10em;
+}
+
+.navigation-options > *:not(:first-child) {
+    margin-left: 1em;
+}
+
+.navigation-options > * {
+    text-decoration: none;
+    color: rgb(250, 247, 237);
+    font-size: 20px;
+}
+
+.active-link {
+    border-bottom: 1px solid rgb(250, 247, 237, 1);
+    padding-bottom: 1px;
+}
+
+.custom-link {
+    transition: 0.3s;
+    border-bottom: 1px solid rgb(250, 247, 237, 0);
+}
+
+.custom-link:hover {
+    border-bottom: 1px solid rgb(250, 247, 237, 1);
+    /*padding-bottom: 1px;*/
 }

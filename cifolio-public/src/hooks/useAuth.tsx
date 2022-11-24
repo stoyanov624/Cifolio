@@ -56,6 +56,7 @@ function useProvideAuth() {
 
     const logout = async () => {
         await logoutUser();
+        setUser(null);
         localStorage.removeItem('user');
     }
 

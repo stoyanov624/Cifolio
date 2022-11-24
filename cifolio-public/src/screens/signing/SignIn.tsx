@@ -1,4 +1,4 @@
-import {FormEvent, useState} from "react";
+import {FormEvent, useEffect, useState} from "react";
 import "./Signing.css";
 import {useNavigate} from "react-router-dom";
 import {UserLoginCredentials} from "../../services/user/interfaces";
@@ -29,6 +29,10 @@ export default function SignIn() {
     const goToRegisterPage = () => {
         navigate('/register');
     }
+
+    useEffect(() => {
+       auth.logout();
+    }, [])
 
     return (<div className={"signing-form-container center"}>
             <form className={"signing-form"} onSubmit={handleSubmit}>
