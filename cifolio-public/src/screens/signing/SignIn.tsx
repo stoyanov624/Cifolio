@@ -1,9 +1,9 @@
 import {FormEvent, useState} from "react";
 import "./Signing.css";
 import {useNavigate} from "react-router-dom";
-import {login} from "../../services/user/controller";
-import {User, UserLoginCredentials} from "../../services/user/interfaces";
+import {UserLoginCredentials} from "../../services/user/interfaces";
 import {updateStateOnInputChange} from "../../utils/InputManager";
+import {useAuth} from "../../hooks/useAuth";
 
 export default function SignIn() {
     const navigate = useNavigate();
@@ -11,14 +11,13 @@ export default function SignIn() {
         username: '',
         password: ''} as UserLoginCredentials
     );
+    const auth = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (event : FormEvent) => {
         event.preventDefault();
         try {
-            const user : User = await login(userCredentials);
-            localStorage.setItem('user', JSON.stringify(user));
-            setErrorMessage('');
+            await auth.login(userCredentials);
             navigate("/home", {replace: true});
         } catch (error : any) {
             if (error.response.status === 401) {

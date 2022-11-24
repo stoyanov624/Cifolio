@@ -28,6 +28,7 @@
     align-items: center;
     margin: auto;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+    color: rgb(250, 247, 237);
 }
 
 .update-modal > input {
