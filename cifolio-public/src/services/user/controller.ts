@@ -5,12 +5,12 @@ const authenticateUser = async (userCredentials: UserLoginCredentials) => {
     return (await axios.post("/login", userCredentials)).data;
 }
 
-const register = async (registrationForm: UserRegisterCredentials) => {
+const createUser = async (registrationForm: UserRegisterCredentials) => {
     return (await axios.post("/register", registrationForm)).data;
 }
 
-const logout = async () => {
+const logoutUser = async () => {
     return (await axios.delete("/logout")).data;
 }
 
-export {authenticateUser, register, logout}
+export {authenticateUser, createUser, logoutUser}

@@ -1,12 +1,13 @@
-import {createContext, ReactNode, useContext, useEffect, useMemo, useState} from "react";
-import {User, UserLoginCredentials} from "../services/user/interfaces";
-import {authenticateUser} from "../services/user/controller";
+import {createContext, ReactNode, useContext, useState} from "react";
+import {User, UserLoginCredentials, UserRegisterCredentials} from "../services/user/interfaces";
+import {authenticateUser, createUser, logoutUser} from "../services/user/controller";
 
 interface AuthContext {
     user: User | null,
     login: (userCredentials: UserLoginCredentials) => Promise<User>;
     isAuthenticated: () => boolean;
-    // register: () => void;
+    register: (registrationCredentials: UserRegisterCredentials) => void;
+    logout: () => void;
 }
 
 type ChildrenProps = { children?: ReactNode };
@@ -18,8 +19,9 @@ const DEFAULT_FUNCTION = () => {
 const authContext = createContext<AuthContext>({
     user: null,
     login: DEFAULT_FUNCTION,
-    isAuthenticated: DEFAULT_FUNCTION
-    // register: DEFAULT_FUNCTION,
+    isAuthenticated: DEFAULT_FUNCTION,
+    register: DEFAULT_FUNCTION,
+    logout: DEFAULT_FUNCTION
 });
 
 export function AuthProvider({children} : ChildrenProps) {
@@ -48,9 +50,20 @@ function useProvideAuth() {
         return user !== null;
     }
 
+    const register = async (registrationCredentials: UserRegisterCredentials) => {
+        await createUser(registrationCredentials);
+    }
+
+    const logout = async () => {
+        await logoutUser();
+        localStorage.removeItem('user');
+    }
+
     return {
         user,
         login,
-        isAuthenticated
+        isAuthenticated,
+        register,
+        logout
     }
 }
