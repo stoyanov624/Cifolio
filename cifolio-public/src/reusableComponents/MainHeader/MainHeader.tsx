@@ -14,7 +14,7 @@ export default function MainHeader() {
                 <ul className={"navigation-options"}>
                     <CustomLink to={'/login'}>Logout</CustomLink>
                     <CustomLink to={'/home'}>Home</CustomLink>
-                    {/*<CustomLink to={'/login'}>Guides</CustomLink>*/}
+                    <CustomLink to={'/guides'}>Guides</CustomLink>
                 </ul>
             </nav>
             }
