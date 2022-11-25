@@ -32,3 +32,12 @@ input:focus {
   top: 50%;
   transform: translate(-50%,-50%);
 }
+
+.title {
+  text-align: center;
+  margin-top: 1em;
+}
+
+.inline {
+  display: inline-block;
+}

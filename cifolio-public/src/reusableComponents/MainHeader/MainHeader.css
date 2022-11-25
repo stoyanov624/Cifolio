@@ -34,7 +34,6 @@
 
 .active-link {
     border-bottom: 1px solid rgb(250, 247, 237, 1);
-    padding-bottom: 1px;
 }
 
 .custom-link {
@@ -44,5 +43,4 @@
 
 .custom-link:hover {
     border-bottom: 1px solid rgb(250, 247, 237, 1);
-    /*padding-bottom: 1px;*/
 }
