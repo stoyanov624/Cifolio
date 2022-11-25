@@ -1,8 +1,8 @@
-import { TfiClose } from "react-icons/tfi";
 import "./CityUpdateModal.css"
 import {FC, useState} from "react";
 import {CityModel} from "../../../../services/city/interfaces";
 import {updateStateOnInputChange} from "../../../../utils/InputManager";
+import UpdateModal from "../../../../reusableComponents/UpdateModal/UpdateModal";
 
 interface ModalProps {
     cityToUpdate: CityModel
@@ -14,10 +14,10 @@ const CityUpdateModal:FC<ModalProps> = (modalProps) => {
     const [cityToUpdate, setCityToUpdate] = useState(modalProps.cityToUpdate);
 
     const isValidInput = () => {
-        return cityToUpdate.name
+        return Boolean(cityToUpdate.name
             && cityToUpdate.name.trim()
             && cityToUpdate.photo
-            && cityToUpdate.photo.trim();
+            && cityToUpdate.photo.trim());
     }
 
     const handleSave = () => {
@@ -26,31 +26,28 @@ const CityUpdateModal:FC<ModalProps> = (modalProps) => {
     }
 
     return (
-        <div className={"modal-background"}>
+        <UpdateModal
+            props={{
+                setIsOpenModal: modalProps.setIsOpenModal,
+                isValidInput: isValidInput,
+                handleSave: handleSave}}>
 
-            <div className={"update-modal"}>
-                <TfiClose
-                    onClick={() => modalProps.setIsOpenModal(false)}
-                    className={"modal-close-square clickable"}
-                />
-                <p>City Name</p>
-                <input
-                    value={cityToUpdate.name.trimStart()}
-                    type={"text"}
-                    name={"name"}
-                    onChange={event => updateStateOnInputChange(event, setCityToUpdate)}
-                />
-                <p>Photo Url</p>
-                <input
-                    value={cityToUpdate.photo.trimStart()}
-                    type={"text"}
-                    name={"photo"}
-                    onChange={event => updateStateOnInputChange(event, setCityToUpdate)}
-                />
-                <button disabled={!isValidInput()} onClick={handleSave}>Save</button>
-                {!isValidInput() && <p className={"error-message"}>All fields must be filled!</p>}
-            </div>
-        </div>
+            <p>City Name</p>
+            <input
+                value={cityToUpdate.name.trimStart()}
+                type={"text"}
+                name={"name"}
+                onChange={event => updateStateOnInputChange(event, setCityToUpdate)}
+            />
+
+            <p>Photo Url</p>
+            <input
+                value={cityToUpdate.photo.trimStart()}
+                type={"text"}
+                name={"photo"}
+                onChange={event => updateStateOnInputChange(event, setCityToUpdate)}
+            />
+        </UpdateModal>
     )
 }
 

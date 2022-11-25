@@ -10,6 +10,7 @@ body {
 }
 
 .clickable {
+  transition: 0.5s;
   cursor: pointer;
 }
 
@@ -40,4 +41,13 @@ input:focus {
 
 .inline {
   display: inline-block;
+}
+
+.active-icon {
+  transition: 0.5s;
+  transform: scale(1.2)
+}
+
+.hide {
+  display: none;
 }

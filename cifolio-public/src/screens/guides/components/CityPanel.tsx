@@ -5,6 +5,7 @@ import "../Guides.css"
 
 interface CityPanelProps {
     city: CityModel;
+    isOpenPanel: boolean
 }
 
 function handleImageNotLoading (erroneousTarget : HTMLImageElement) {
@@ -12,7 +13,7 @@ function handleImageNotLoading (erroneousTarget : HTMLImageElement) {
 }
 
 const CityPanel:FC<CityPanelProps> = (props) => {
-    return (<div className={"city-panel"}>
+    return (<div className={'city-panel'}>
         <img
             src={props.city.photo}
             loading={"eager"}
