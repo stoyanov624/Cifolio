@@ -7,6 +7,8 @@ import com.cifolio.cifolio.repository.TravelGuideRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 
@@ -30,7 +32,7 @@ public class TravelGuideService {
                 .orElseThrow(() -> new NoSuchElementException("Guide not found!"));
     }
 
-    public Page<TravelGuide> getGuidePage(Pageable pagingData) {
-        return travelGuideRepository.findAll(pagingData);
+    public List<TravelGuide> getGuides() {
+        return travelGuideRepository.findAll();
     }
 }
