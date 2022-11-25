@@ -1,60 +1,14 @@
 import './Guides.css'
-import {AiOutlineEye} from "react-icons/ai"
+import {BsClipboardPlus} from "react-icons/bs"
+import Guide from "./components/Guide";
 
 export default function Guides() {
     return (<div className={"guides-screen"}>
-            <h1 className={"title"}>Travel Guides</h1>
-            <div className={"guides-container"}>
-                <div>
-                    <div className={"guide-title-holder"}>
-                        <h1>Guide1</h1>
-                        <AiOutlineEye  size={25} className={"clickable"}/>
-                    </div>
-                    <h2>Guide description</h2>
-                </div>
-                <div>
-                    <div className={"guide-title-holder"}>
-                        <h1>Guide2</h1>
-                        <AiOutlineEye  size={25} className={"clickable"}/>
-                    </div>
-                    <h2>Guide description</h2>
-                </div>
-                <div>
-                    <div className={"guide-title-holder"}>
-                        <h1>Guide3</h1>
-                        <AiOutlineEye  size={25} className={"clickable"}/>
-                    </div>
-                    <h2>Guide description</h2>
-                </div>
-                <div>
-                    <div className={"guide-title-holder"}>
-                        <h1>Guide3</h1>
-                        <AiOutlineEye  size={25} className={"clickable"}/>
-                    </div>
-                    <h2>Guide description</h2>
-                </div>
-                <div>
-                    <div className={"guide-title-holder"}>
-                        <h1>Guide3</h1>
-                        <AiOutlineEye  size={25} className={"clickable"}/>
-                    </div>
-                    <h2>Guide description</h2>
-                </div>
-                <div>
-                    <div className={"guide-title-holder"}>
-                        <h1>Guide3</h1>
-                        <AiOutlineEye  size={25} className={"clickable"}/>
-                    </div>
-                    <h2>Guide description</h2>
-                </div>
-                <div>
-                    <div className={"guide-title-holder"}>
-                        <h1>Guide3</h1>
-                        <AiOutlineEye  size={25} className={"clickable"}/>
-                    </div>
-                    <h2>Guide description</h2>
-                </div>
+            <div className={"title guides-screen-title"}>
+                <h1>Travel Guides</h1>
+                <BsClipboardPlus className={"clickable"} size={30}/>
             </div>
+            <Guide/>
         </div>
     )
 }
