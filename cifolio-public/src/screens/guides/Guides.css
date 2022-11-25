@@ -33,3 +33,21 @@
 .guide-title-holder > *:not(:first-child) {
     margin-left: 10px;
 }
+
+.city-panel {
+    display: flex;
+    margin-top: 1em;
+}
+
+.city-info {
+    margin-left: 1em;
+}
+
+.city-info > p {
+    font-size: 20px;
+}
+
+.city-panel > img {
+    width: 250px;
+    height: 200px;
+}
