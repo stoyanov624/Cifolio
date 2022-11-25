@@ -1,7 +1,7 @@
 package com.cifolio.cifolio.mapper.guide;
 
 import com.cifolio.cifolio.converters.guide.GuideEntityToDtoConverter;
-import com.cifolio.cifolio.dto.guide.TravelGuideGeneralInformationDto;
+import com.cifolio.cifolio.dto.guide.TravelGuideDto;
 import com.cifolio.cifolio.model.city.TravelGuide;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class GuideMapper {
     private final GuideEntityToDtoConverter guideEntityToDtoConverter;
 
-    public List<TravelGuideGeneralInformationDto> mapGuideEntitiesToGeneralGuidesWithGeneralInformationDtos(List<TravelGuide> travelGuides) {
+    public List<TravelGuideDto> mapGuideEntitiesToGuideDto(List<TravelGuide> travelGuides) {
         return travelGuides
                 .stream()
                 .map(guideEntityToDtoConverter)
