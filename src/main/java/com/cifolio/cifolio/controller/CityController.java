@@ -4,7 +4,6 @@ import com.cifolio.cifolio.mapper.city.CityMapper;
 import com.cifolio.cifolio.service.city.CityService;
 import com.cifolio.cifolio.dto.city.CityDto;
 import com.cifolio.cifolio.model.city.City;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 

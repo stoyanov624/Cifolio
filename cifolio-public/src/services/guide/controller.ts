@@ -13,4 +13,8 @@ const updateExistingGuide = async (updatedTravelGuide: TravelGuideDataModel) => 
     return (await axios.put("/guides", updatedTravelGuide)).data;
 }
 
-export {fetchTravelGuides, createNewTravelGuide, updateExistingGuide}
+const deleteGuide = async (guideId: number) => {
+    return (await axios.delete(`/guides/${guideId}`)).data;
+}
+
+export {fetchTravelGuides, createNewTravelGuide, updateExistingGuide, deleteGuide}

@@ -3,7 +3,12 @@ import {BsClipboardPlus} from "react-icons/bs"
 import Guide from "./components/Guide";
 import {useEffect, useState} from "react";
 import {TravelGuideDataModel} from "../../services/guide/interfaces";
-import {createNewTravelGuide, fetchTravelGuides, updateExistingGuide} from "../../services/guide/controller";
+import {
+    createNewTravelGuide,
+    deleteGuide,
+    fetchTravelGuides,
+    updateExistingGuide
+} from "../../services/guide/controller";
 import GuideModerationModal from "./components/GuideModerationModal/GuideModerationModal";
 
 export default function Guides() {
@@ -53,6 +58,15 @@ export default function Guides() {
         setGuides(updatedGuides);
     }
 
+    const handleGuideDeletion = async (guideId: number) => {
+        const updatedGuides = guides.filter(guide => guide.id !== guideId);
+        if (updatedGuides.length === guides.length) {
+            throw new Error('Guide not found on delete attempt!');
+        }
+        setGuides(updatedGuides);
+        await deleteGuide(guideId);
+    }
+
     return (
         <div className={"guides-screen"}>
             <div className={"title guides-screen-title"}>
@@ -65,6 +79,7 @@ export default function Guides() {
                 guide={guide}
                 setIsModalOpen={setIsModalOpen}
                 setGuideToUpdate={setGuideToUpdate}
+                handleGuideDeletion={handleGuideDeletion}
             />
         )}
         {isModalOpen && <GuideModerationModal

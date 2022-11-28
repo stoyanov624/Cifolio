@@ -13,8 +13,8 @@ import java.util.function.Function;
 public class GuideEntityToDtoConverter implements Function<TravelGuide, TravelGuideDto> {
     private final CityMapper cityMapper;
     @Override
-    public TravelGuideDto apply(TravelGuide city) {
-        return convertToDto(city);
+    public TravelGuideDto apply(TravelGuide travelGuide) {
+        return convertToDto(travelGuide);
     }
 
     private TravelGuideDto convertToDto(TravelGuide guide) {

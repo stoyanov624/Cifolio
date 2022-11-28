@@ -4,10 +4,10 @@ import com.cifolio.cifolio.dto.guide.TravelGuideDto;
 import com.cifolio.cifolio.mapper.guide.GuideMapper;
 import com.cifolio.cifolio.model.city.TravelGuide;
 import com.cifolio.cifolio.service.guide.TravelGuideService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -32,9 +32,11 @@ public class TravelGuideController {
 
     @PutMapping("/guides" )
     public ResponseEntity<?> updateTravelGuide(
-            @RequestBody() TravelGuide guide) {
+            @RequestBody() TravelGuideDto guide) {
         try {
-            travelGuideService.updateTravelGuide(guide);
+            travelGuideService.updateTravelGuide(
+                    guideMapper.mapGuideDtoToEntity(guide)
+            );
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.info(e.getMessage());
@@ -45,9 +47,21 @@ public class TravelGuideController {
     @PostMapping("/guides" )
     public ResponseEntity<?> createNewGuide(@RequestBody() TravelGuideDto guideDto) {
         try {
-            TravelGuide guideToCreate = new TravelGuide(guideDto.getName());
-            TravelGuide createdTravelGuide = travelGuideService.createTravelGuide(guideToCreate);
+            TravelGuide createdTravelGuide = travelGuideService.createTravelGuide(
+                    guideMapper.mapGuideDtoToEntity(guideDto)
+            );
             return ResponseEntity.ok().body(createdTravelGuide);
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            return ResponseEntity.badRequest().body("Unable to create new guide!");
+        }
+    }
+
+    @DeleteMapping("/guides/{guideId}" )
+    public ResponseEntity<?> deleteGuide(@PathVariable(name = "guideId") Long guideId) {
+        try {
+            travelGuideService.deleteTravelGuideById(guideId);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.info(e.getMessage());
             return ResponseEntity.badRequest().body("Unable to create new guide!");

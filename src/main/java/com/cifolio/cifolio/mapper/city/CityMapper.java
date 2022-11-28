@@ -4,8 +4,8 @@ import com.cifolio.cifolio.converters.city.CityDtoToEntityConverter;
 import com.cifolio.cifolio.converters.city.CityEntityToDtoConverter;
 import com.cifolio.cifolio.dto.city.CityDto;
 import com.cifolio.cifolio.model.city.City;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Collection;
 import java.util.List;
@@ -25,6 +25,13 @@ public class CityMapper {
         return entities
                 .stream()
                 .map(cityToDtoConverter)
+                .collect(Collectors.toList());
+    }
+
+    public List<City> mapCityDtosToEntities(Collection<CityDto> entities) {
+        return entities
+                .stream()
+                .map(dtoToCityConverter)
                 .collect(Collectors.toList());
     }
 }
