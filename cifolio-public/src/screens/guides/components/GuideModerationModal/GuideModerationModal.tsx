@@ -1,9 +1,11 @@
 import UpdateModal from "../../../../reusableComponents/UpdateModal/UpdateModal";
 import {TravelGuideDataModel} from "../../../../services/guide/interfaces";
-import {useState} from "react";
+import {createRef, LegacyRef, RefObject, useEffect, useState} from "react";
 import {updateStateOnInputChange} from "../../../../utils/InputManager";
 import {Multiselect} from "multiselect-react-dropdown";
 import "./GuideModerationModal.css";
+import {fetchCities} from "../../../../services/city/controller";
+import {CityModel} from "../../../../services/city/interfaces";
 
 interface ModalProps {
     setIsModalOpen: (isOpen: boolean) => void;
@@ -13,7 +15,8 @@ interface ModalProps {
 
 const GuideModerationModal = (props: ModalProps) => {
     const [guideToUpdate, setGuideToUpdate] = useState<TravelGuideDataModel>(props.guideToUpdate);
-    const [selectableCities, setSelectableCities] = useState([]);
+    const [selectableCities, setSelectableCities] = useState<CityModel[]>([]);
+    const multiSelectRef = createRef() as RefObject<Multiselect>;
 
     const isValidInput = () => {
         return Boolean(
@@ -23,8 +26,25 @@ const GuideModerationModal = (props: ModalProps) => {
     }
 
     const handleSave = () => {
+        setSelectedCitiesToGuide();
         props.updateGuides(guideToUpdate);
         props.setIsModalOpen(false);
+    }
+
+    const prepareComponent = async () => {
+        const cities = await fetchCities();
+        setSelectableCities(cities);
+    }
+
+    useEffect(() => {
+        prepareComponent();
+    }, [])
+
+    const setSelectedCitiesToGuide = () => {
+        const selectedCities = multiSelectRef.current?.getSelectedItems() as CityModel[];
+        const _guide = guideToUpdate;
+        _guide.cities = [...selectedCities];
+        setGuideToUpdate(_guide);
     }
 
     return (
@@ -43,12 +63,11 @@ const GuideModerationModal = (props: ModalProps) => {
         />
 
         <Multiselect
+            ref={multiSelectRef}
             showCheckbox={true}
             placeholder={'Select city to add...'}
             options={selectableCities}
             selectedValues={[...guideToUpdate.cities]}
-            onSelect={() => console.log('selected')}
-            onRemove={() => console.log('removed')}
             displayValue={'name'}
         />
         </UpdateModal>

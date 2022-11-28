@@ -39,6 +39,7 @@ public class TravelGuideService {
                 .orElseThrow(() -> new IllegalArgumentException("Guide with that ID not found!"));
 
         guide.setName(updatedGuide.getName());
+        guide.setCities(updatedGuide.getCities());
         travelGuideRepository.save(guide);
     }
 
