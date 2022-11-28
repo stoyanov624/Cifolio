@@ -10,10 +10,11 @@ import {
     updateExistingGuide
 } from "../../services/guide/controller";
 import GuideModerationModal from "./components/GuideModerationModal/GuideModerationModal";
+import {NEW_TRAVEL_GUIDE} from "../../utils/constants/TravelGuides";
 
 export default function Guides() {
     const [guides, setGuides] = useState<TravelGuideDataModel[]>([]);
-    const [guideToUpdate, setGuideToUpdate] = useState<TravelGuideDataModel>({id: null, name: '', cities: []})
+    const [guideToUpdate, setGuideToUpdate] = useState<TravelGuideDataModel>(NEW_TRAVEL_GUIDE)
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
@@ -26,7 +27,7 @@ export default function Guides() {
     }
 
     const handleModalOpening = () => {
-        setGuideToUpdate({id: null, name: '', cities: []});
+        setGuideToUpdate(NEW_TRAVEL_GUIDE);
         setIsModalOpen(true);
     }
 
@@ -61,7 +62,7 @@ export default function Guides() {
     const handleGuideDeletion = async (guideId: number) => {
         const updatedGuides = guides.filter(guide => guide.id !== guideId);
         if (updatedGuides.length === guides.length) {
-            throw new Error('Guide not found on delete attempt!');
+            throw new Error('DELETE ERROR! Guide not found!');
         }
         setGuides(updatedGuides);
         await deleteGuide(guideId);

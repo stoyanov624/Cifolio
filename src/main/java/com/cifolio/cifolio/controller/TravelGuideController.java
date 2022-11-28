@@ -24,8 +24,8 @@ public class TravelGuideController {
         try {
             List<TravelGuide> guides = travelGuideService.getGuides();
             return ResponseEntity.ok().body(guideMapper.mapGuideEntitiesToGuideDto(guides));
-        } catch (Exception e) {
-            log.info(e.getMessage());
+        } catch (Exception exception) {
+            log.info(exception.getMessage());
             return ResponseEntity.badRequest().body("Unable to add city to guide!");
         }
     }
@@ -38,8 +38,8 @@ public class TravelGuideController {
                     guideMapper.mapGuideDtoToEntity(guide)
             );
             return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            log.info(e.getMessage());
+        } catch (Exception exception) {
+            log.info(exception.getMessage());
             return ResponseEntity.badRequest().body("Unable to add city to guide!");
         }
     }
@@ -51,8 +51,8 @@ public class TravelGuideController {
                     guideMapper.mapGuideDtoToEntity(guideDto)
             );
             return ResponseEntity.ok().body(createdTravelGuide);
-        } catch (Exception e) {
-            log.info(e.getMessage());
+        } catch (Exception exception) {
+            log.info(exception.getMessage());
             return ResponseEntity.badRequest().body("Unable to create new guide!");
         }
     }
@@ -62,8 +62,8 @@ public class TravelGuideController {
         try {
             travelGuideService.deleteTravelGuideById(guideId);
             return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            log.info(e.getMessage());
+        } catch (Exception exception) {
+            log.info(exception.getMessage());
             return ResponseEntity.badRequest().body("Unable to create new guide!");
         }
     }

@@ -11,8 +11,8 @@ public final class RsaKeyGenerator {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
             keyPairGenerator.initialize(2048);
             return keyPairGenerator.generateKeyPair();
-        } catch (Exception ex) {
-            throw new IllegalStateException(ex);
+        } catch (Exception exception) {
+            throw new IllegalStateException(exception);
         }
     }
 }

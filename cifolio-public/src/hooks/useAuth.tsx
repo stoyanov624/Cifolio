@@ -4,7 +4,7 @@ import {authenticateUser, createUser, logoutUser} from "../services/user/control
 
 interface AuthContext {
     user: User | null,
-    login: (userCredentials: UserLoginCredentials) => Promise<User>;
+    login: (userCredentials: UserLoginCredentials) => void;
     isAuthenticated: () => boolean;
     register: (registrationCredentials: UserRegisterCredentials) => void;
     logout: () => void;
@@ -41,9 +41,8 @@ function useProvideAuth() {
 
     const login = async (userCredentials: UserLoginCredentials) => {
         const loggedUser : User = await authenticateUser(userCredentials);
-        setUser(loggedUser);
         localStorage.setItem('user', JSON.stringify(loggedUser));
-        return loggedUser;
+        setUser(loggedUser);
     }
 
     const isAuthenticated = () => {

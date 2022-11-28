@@ -25,8 +25,8 @@ public class UserController {
         try {
             userService.registerUser(userDtoToUserEntityConverter.apply(registrationForm));
             return ResponseEntity.ok().body("Successful registration!");
-        } catch (Exception e) {
-            log.info(e.getMessage());
+        } catch (Exception exception) {
+            log.info(exception.getMessage());
             return ResponseEntity.badRequest().body("Error occurred while registration attempt!");
         }
     }
@@ -42,8 +42,8 @@ public class UserController {
                     .ok()
                     .header(HttpHeaders.SET_COOKIE, deleteSpringCookie.toString())
                     .build();
-        } catch (Exception e) {
-            log.info(e.getMessage());
+        } catch (Exception exception) {
+            log.info(exception.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }
