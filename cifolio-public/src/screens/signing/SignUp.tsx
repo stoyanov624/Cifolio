@@ -2,10 +2,11 @@ import {useNavigate} from "react-router-dom";
 import {FormEvent, useState} from "react";
 import {UserRegisterCredentials} from "../../services/user/interfaces";
 import {updateStateOnInputChange} from "../../utils/InputManager";
-import {register} from "../../services/user/controller";
+import {useAuth} from "../../hooks/useAuth";
 
 export default function SignUp() {
     const navigate = useNavigate();
+    const auth = useAuth();
     const [userCredentials, setUserCredentials] = useState({
         username: '',
         email: '',
@@ -15,12 +16,11 @@ export default function SignUp() {
     const handleSubmit = async (event : FormEvent) => {
         event.preventDefault();
         try {
-            await register(userCredentials)
+            await auth.register(userCredentials)
             goToLoginPage();
         } catch (error) {
             console.log(error);
         }
-
     }
 
     const goToLoginPage = () => {

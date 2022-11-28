@@ -4,14 +4,12 @@ import com.cifolio.cifolio.dto.guide.TravelGuideDto;
 import com.cifolio.cifolio.mapper.guide.GuideMapper;
 import com.cifolio.cifolio.model.city.TravelGuide;
 import com.cifolio.cifolio.service.guide.TravelGuideService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -22,32 +20,26 @@ public class TravelGuideController {
     private final GuideMapper guideMapper;
 
     @GetMapping("/guides" )
-    public ResponseEntity<?> getGuidePage(
-            @PageableDefault() Pageable pagingData) {
+    public ResponseEntity<?> getGuidePage() {
         try {
-            Page<TravelGuide> guides = travelGuideService.getGuidePage(pagingData);
-            Page<TravelGuideDto> guidesPagingData = new PageImpl<>(
-                    guideMapper.mapGuideEntitiesToGuideDtos(guides.getContent()),
-                    pagingData,
-                    guides.getTotalElements()
-            );
-
-            return ResponseEntity.ok().body(guidesPagingData);
-        } catch (Exception e) {
-            log.info(e.getMessage());
+            List<TravelGuide> guides = travelGuideService.getGuides();
+            return ResponseEntity.ok().body(guideMapper.mapGuideEntitiesToGuideDto(guides));
+        } catch (Exception exception) {
+            log.info(exception.getMessage());
             return ResponseEntity.badRequest().body("Unable to add city to guide!");
         }
     }
 
     @PutMapping("/guides" )
-    public ResponseEntity<?> addCityToGuide(
-            @RequestParam() Long guideId,
-            @RequestParam() Long cityId) {
+    public ResponseEntity<?> updateTravelGuide(
+            @RequestBody() TravelGuideDto guide) {
         try {
-            travelGuideService.addCityToGuide(guideId, cityId);
+            travelGuideService.updateTravelGuide(
+                    guideMapper.mapGuideDtoToEntity(guide)
+            );
             return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            log.info(e.getMessage());
+        } catch (Exception exception) {
+            log.info(exception.getMessage());
             return ResponseEntity.badRequest().body("Unable to add city to guide!");
         }
     }
@@ -55,11 +47,23 @@ public class TravelGuideController {
     @PostMapping("/guides" )
     public ResponseEntity<?> createNewGuide(@RequestBody() TravelGuideDto guideDto) {
         try {
-            TravelGuide guideToCreate = new TravelGuide(guideDto.getName());
-            travelGuideService.createTravelGuide(guideToCreate);
+            TravelGuide createdTravelGuide = travelGuideService.createTravelGuide(
+                    guideMapper.mapGuideDtoToEntity(guideDto)
+            );
+            return ResponseEntity.ok().body(createdTravelGuide);
+        } catch (Exception exception) {
+            log.info(exception.getMessage());
+            return ResponseEntity.badRequest().body("Unable to create new guide!");
+        }
+    }
+
+    @DeleteMapping("/guides/{guideId}" )
+    public ResponseEntity<?> deleteGuide(@PathVariable(name = "guideId") Long guideId) {
+        try {
+            travelGuideService.deleteTravelGuideById(guideId);
             return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            log.info(e.getMessage());
+        } catch (Exception exception) {
+            log.info(exception.getMessage());
             return ResponseEntity.badRequest().body("Unable to create new guide!");
         }
     }

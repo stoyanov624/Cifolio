@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import lombok.AllArgsConstructor;
 
+import java.util.Collection;
+
 @Service
 @AllArgsConstructor
 public class CityService {
@@ -22,5 +24,9 @@ public class CityService {
             .orElseThrow(() -> new IllegalArgumentException("Unable to update! City with ID: " + city.getId() + " not found!"));
 
         cityRepository.save(city);
+    }
+
+    public Collection<City> getCities() {
+        return cityRepository.findAll();
     }
 }

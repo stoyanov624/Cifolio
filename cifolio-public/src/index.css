@@ -10,6 +10,7 @@ body {
 }
 
 .clickable {
+  transition: 0.5s;
   cursor: pointer;
 }
 
@@ -31,4 +32,22 @@ input:focus {
   left: 50%;
   top: 50%;
   transform: translate(-50%,-50%);
+}
+
+.title {
+  text-align: center;
+  margin-top: 1em;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.active-icon {
+  transition: 0.5s;
+  transform: scale(1.2)
+}
+
+.hide {
+  display: none;
 }

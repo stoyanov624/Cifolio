@@ -1,8 +1,8 @@
 import axios from "../axios";
 import {CityModel} from "./interfaces";
 
-const fetchCities = async (page: number, pageSize: number, cityName?: string) => {
-    return (await axios.get("/cities", {
+const fetchPageOfCities = async (page: number, pageSize: number, cityName?: string) => {
+    return (await axios.get("/cities-page", {
         params: {
             cityName: cityName,
             page: page,
@@ -11,11 +11,16 @@ const fetchCities = async (page: number, pageSize: number, cityName?: string) =>
     })).data;
 }
 
+const fetchCities = async () => {
+    return (await axios.get("/cities")).data
+}
+
 const updateCity = async (cityToUpdate: CityModel) => {
     return (await axios.put("/cities", cityToUpdate))
 }
 
 export {
-    fetchCities,
-    updateCity
+    fetchPageOfCities,
+    updateCity,
+    fetchCities
 };

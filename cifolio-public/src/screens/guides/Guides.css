@@ -1,0 +1,64 @@
+.guides-screen {
+    color: rgb(250, 247, 237);
+}
+
+.guides-screen-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.guides-screen-title > *:not(:first-child) {
+    margin-left: 1em;
+}
+
+.guides-container {
+    margin-top: 1em;
+    margin-left: 1em;
+}
+
+.guides-container > *:not(:first-child) {
+    margin-top: 1em;
+}
+
+.guides-container > h1 {
+    text-align: center;
+}
+
+.guide-title-holder {
+    display: flex;
+    align-items: center;
+}
+
+.guide-title-holder > *:not(:first-child) {
+    margin-left: 10px;
+}
+
+.city-panel {
+    display: flex;
+    margin-top: 1em;
+    animation: fadeIn 0.8s;
+}
+
+.city-info {
+    margin-left: 1em;
+}
+
+.city-info > p {
+    font-size: 20px;
+}
+
+.city-panel > img {
+    width: 250px;
+    height: 200px;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 100; }
+    100% { opacity: 0; }
+}

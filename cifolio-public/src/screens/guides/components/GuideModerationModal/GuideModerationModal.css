@@ -1,0 +1,11 @@
+.option {
+    background-color: rgba(106, 118, 125, 0.7);
+}
+
+.multiSelectContainer {
+    width: 300px;
+}
+
+.searchBox::placeholder {
+    color: white;
+}

@@ -18,7 +18,6 @@ const SearchBar:FC<SearchBarProps> = ({executeSearch}) => {
                 }
             }} ref={searchInput} placeholder={"Search with Enter"}/>
             <FaSearchLocation onClick={() => executeSearch(searchInput.current.value)} className={"clickable search-icon"}/>
-
         </div>
     )
 }

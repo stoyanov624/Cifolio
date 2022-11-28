@@ -10,7 +10,6 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +31,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -63,11 +63,9 @@ public class SecurityConfigurations {
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .userDetailsService(customUserDetailsService)
-                .oauth2ResourceServer(oath2 -> {
-                    oath2
+                .oauth2ResourceServer(oath2 -> oath2
                     .jwt()
-                    .jwtAuthenticationConverter(authenticationConverter());
-                })
+                    .jwtAuthenticationConverter(authenticationConverter()))
                 .addFilter(authenticationFilter)
                 .addFilterBefore(new AuthorizationFilter(jwtDecoder()), UsernamePasswordAuthenticationFilter.class)
                 .build();
