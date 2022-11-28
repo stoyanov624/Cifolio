@@ -4,7 +4,7 @@ import Guide from "./components/Guide";
 import {useEffect, useState} from "react";
 import {TravelGuideDataModel} from "../../services/guide/interfaces";
 import {createNewTravelGuide, fetchTravelGuides, updateExistingGuide} from "../../services/guide/controller";
-import GuideModerationModal from "./components/GuideModerationModal";
+import GuideModerationModal from "./components/GuideModerationModal/GuideModerationModal";
 
 export default function Guides() {
     const [guides, setGuides] = useState<TravelGuideDataModel[]>([]);

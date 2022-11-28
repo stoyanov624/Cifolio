@@ -2,7 +2,7 @@ import "../../homeScreen.css"
 import {useEffect, useState} from "react";
 import CityContainer from "../CityContainer/CityContainer";
 import Pager from "../../../../reusableComponents/Pager/Pager";
-import {fetchCities, updateCity} from "../../../../services/city/controller";
+import {fetchPageOfCities, updateCity} from "../../../../services/city/controller";
 import SearchBar from "../../../../reusableComponents/SearchBar/SearchBar";
 import {CityModel} from "../../../../services/city/interfaces";
 
@@ -27,7 +27,7 @@ export default function CitiesContainer () {
             ...prevState,
             currentPage: page
         }))
-        const cityData = await fetchCities(page - 1, DEFAULT_PAGE_SIZE, searchedCity);
+        const cityData = await fetchPageOfCities(page - 1, DEFAULT_PAGE_SIZE, searchedCity);
         setCities(cityData.content);
     }
 
@@ -36,7 +36,7 @@ export default function CitiesContainer () {
     }, [searchedCity]);
 
     const loadInitialPage = async () => {
-        const cityData = await fetchCities(INITIAL_PAGE, DEFAULT_PAGE_SIZE, searchedCity);
+        const cityData = await fetchPageOfCities(INITIAL_PAGE, DEFAULT_PAGE_SIZE, searchedCity);
         setCities(cityData.content);
         setPagingData(prevState => ({
             currentPage: 1,

@@ -1,7 +1,7 @@
 import axios from "../axios";
 import {CityModel} from "./interfaces";
 
-const fetchCities = async (page: number, pageSize: number, cityName?: string) => {
+const fetchPageOfCities = async (page: number, pageSize: number, cityName?: string) => {
     return (await axios.get("/cities", {
         params: {
             cityName: cityName,
@@ -16,6 +16,6 @@ const updateCity = async (cityToUpdate: CityModel) => {
 }
 
 export {
-    fetchCities,
+    fetchPageOfCities,
     updateCity
 };
