@@ -3,24 +3,28 @@ import "../Guides.css"
 import {FC, useState} from "react";
 import {TravelGuideDataModel} from "../../../services/guide/interfaces";
 import CityPanel from "./CityPanel";
-import GuideModerationModal from "./GuideModerationModal";
 import {BsFillPencilFill} from "react-icons/bs";
 
 interface GuideComponentProps {
     guide: TravelGuideDataModel
+    setIsModalOpen: (isModalOpen: boolean) => void;
+    setGuideToUpdate: (guideToUpdate: TravelGuideDataModel) => void;
 }
 
 const Guide:FC<GuideComponentProps> = (props) => {
     const [isOpenPanel, setIsOpenPanel] = useState(false);
-    const [isOpenModal, setIsOpenModal] = useState(false);
+
+    const handleModalOpening = () => {
+        props.setGuideToUpdate(props.guide);
+        props.setIsModalOpen(true);
+    }
 
     return <div className={"guides-container"}>
         <div>
             <div className={"guide-title-holder"}>
                 <h1>{props.guide.name}</h1>
                 <ImEye onClick={() => setIsOpenPanel(!isOpenPanel)} size={25} className={`${isOpenPanel ? 'active-icon' : ''} clickable`}/>
-                <BsFillPencilFill className={"clickable"} onClick={() => setIsOpenModal(true)} />
-
+                <BsFillPencilFill className={"clickable"} onClick={handleModalOpening} />
             </div>
             <h2>Guide description</h2>
             {isOpenPanel && props.guide.cities.map((city, index) =>
@@ -30,7 +34,6 @@ const Guide:FC<GuideComponentProps> = (props) => {
                     isOpenPanel={isOpenPanel}
                 />
             )}
-            {isOpenModal && <GuideModerationModal setIsOpenModal={setIsOpenModal}/>}
         </div>
     </div>
 }

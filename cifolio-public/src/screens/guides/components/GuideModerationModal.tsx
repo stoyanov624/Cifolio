@@ -1,7 +1,9 @@
 import UpdateModal from "../../../reusableComponents/UpdateModal/UpdateModal";
+import {TravelGuideDataModel} from "../../../services/guide/interfaces";
 
 interface ModalProps {
-    setIsOpenModal: (isOpen: boolean) => void;
+    setIsModalOpen: (isOpen: boolean) => void;
+    guideToUpdate: TravelGuideDataModel;
 }
 
 const GuideModerationModal = (props: ModalProps) => {
@@ -17,12 +19,12 @@ const GuideModerationModal = (props: ModalProps) => {
         <UpdateModal props={{
             isValidInput: isValidInput,
             handleSave: handleSave,
-            setIsOpenModal: props.setIsOpenModal}
+            setIsOpenModal: props.setIsModalOpen}
         }>
 
         <p>Guide Name</p>
         <input
-            value={"Some Default value"}
+            value={props.guideToUpdate.name}
             type={"text"}
             name={"name"}
             // onChange={event => updateStateOnInputChange(event, setCityToUpdate)}
