@@ -18,8 +18,8 @@ public class TravelGuideService {
     private final TravelGuideRepository travelGuideRepository;
     private final CityRepository cityRepository;
 
-    public void createTravelGuide(TravelGuide guideToCreate) {
-        travelGuideRepository.save(guideToCreate);
+    public TravelGuide createTravelGuide(TravelGuide guideToCreate) {
+        return travelGuideRepository.save(guideToCreate);
     }
 
     public void addCityToGuide(Long guideId, Long cityId) {

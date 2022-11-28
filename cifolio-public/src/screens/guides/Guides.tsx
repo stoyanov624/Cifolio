@@ -3,7 +3,7 @@ import {BsClipboardPlus} from "react-icons/bs"
 import Guide from "./components/Guide";
 import {useEffect, useState} from "react";
 import {TravelGuideDataModel} from "../../services/guide/interfaces";
-import {fetchTravelGuides} from "../../services/guide/controller";
+import {createNewTravelGuide, fetchTravelGuides} from "../../services/guide/controller";
 import GuideModerationModal from "./components/GuideModerationModal";
 
 export default function Guides() {
@@ -25,12 +25,21 @@ export default function Guides() {
         setIsModalOpen(true);
     }
 
-    const modifyGuides = (updatedGuide: TravelGuideDataModel) => {
-        if (updatedGuide.id === null) {
-            setGuides([...guides, updatedGuide]);
-            return;
+    const updateGuides = async (guide: TravelGuideDataModel) => {
+        if (guide.id === null) {
+            await handleGuideCreation(guide);
+        } else {
+            handleGuideModification(guide);
         }
+    }
 
+    const handleGuideCreation = async (newGuide: TravelGuideDataModel) => {
+        const {id} : {id: number} = await createNewTravelGuide(newGuide);
+        newGuide.id = id;
+        setGuides([...guides, newGuide]);
+    }
+
+    const handleGuideModification = (updatedGuide: TravelGuideDataModel) => {
         const updatedGuides = guides.map(guide => {
             if(guide.id === updatedGuide.id) {
                 return {
@@ -61,7 +70,7 @@ export default function Guides() {
         {isModalOpen && <GuideModerationModal
             guideToUpdate={guideToUpdate}
             setIsModalOpen={setIsModalOpen}
-            updateGuides={modifyGuides}/>}
+            updateGuides={updateGuides}/>}
         </div>
     )
 }
