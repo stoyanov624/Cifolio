@@ -31,11 +31,10 @@ public class TravelGuideController {
     }
 
     @PutMapping("/guides" )
-    public ResponseEntity<?> addCityToGuide(
-            @RequestParam() Long guideId,
-            @RequestParam() Long cityId) {
+    public ResponseEntity<?> updateTravelGuide(
+            @RequestBody() TravelGuide guide) {
         try {
-            travelGuideService.addCityToGuide(guideId, cityId);
+            travelGuideService.updateTravelGuide(guide);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             log.info(e.getMessage());

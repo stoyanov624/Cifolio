@@ -3,7 +3,7 @@ import {BsClipboardPlus} from "react-icons/bs"
 import Guide from "./components/Guide";
 import {useEffect, useState} from "react";
 import {TravelGuideDataModel} from "../../services/guide/interfaces";
-import {createNewTravelGuide, fetchTravelGuides} from "../../services/guide/controller";
+import {createNewTravelGuide, fetchTravelGuides, updateExistingGuide} from "../../services/guide/controller";
 import GuideModerationModal from "./components/GuideModerationModal";
 
 export default function Guides() {
@@ -29,7 +29,7 @@ export default function Guides() {
         if (guide.id === null) {
             await handleGuideCreation(guide);
         } else {
-            handleGuideModification(guide);
+            await handleGuideModification(guide);
         }
     }
 
@@ -39,7 +39,8 @@ export default function Guides() {
         setGuides([...guides, newGuide]);
     }
 
-    const handleGuideModification = (updatedGuide: TravelGuideDataModel) => {
+    const handleGuideModification = async (updatedGuide: TravelGuideDataModel) => {
+        await updateExistingGuide(updatedGuide);
         const updatedGuides = guides.map(guide => {
             if(guide.id === updatedGuide.id) {
                 return {
@@ -49,7 +50,6 @@ export default function Guides() {
             }
             return guide
         })
-
         setGuides(updatedGuides);
     }
 

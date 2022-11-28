@@ -9,4 +9,8 @@ const createNewTravelGuide = async (newTravelGuide: TravelGuideDataModel) => {
     return (await axios.post("/guides", newTravelGuide)).data;
 }
 
-export {fetchTravelGuides, createNewTravelGuide}
+const updateExistingGuide = async (updatedTravelGuide: TravelGuideDataModel) => {
+    return (await axios.put("/guides", updatedTravelGuide)).data;
+}
+
+export {fetchTravelGuides, createNewTravelGuide, updateExistingGuide}

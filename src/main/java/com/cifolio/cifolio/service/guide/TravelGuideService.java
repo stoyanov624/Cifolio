@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -30,6 +32,14 @@ public class TravelGuideService {
                 .map(guide -> guide.addCity(city))
                 .map(travelGuideRepository::save)
                 .orElseThrow(() -> new NoSuchElementException("Guide not found!"));
+    }
+
+    public void updateTravelGuide(TravelGuide updatedGuide) {
+        TravelGuide guide = travelGuideRepository.findById(updatedGuide.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Guide with that ID not found!"));
+
+        guide.setName(updatedGuide.getName());
+        travelGuideRepository.save(guide);
     }
 
     public List<TravelGuide> getGuides() {
