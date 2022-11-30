@@ -1,4 +1,5 @@
 package com.cifolio.cifolio.service;
+import com.cifolio.cifolio.exception_handling.exceptions.CityNotFoundException;
 import com.cifolio.cifolio.model.city.City;
 import com.cifolio.cifolio.repository.CityRepository;
 import com.cifolio.cifolio.service.city.CityService;
@@ -33,8 +34,8 @@ class CityServiceTests {
     @Test
     void getCitiesPage() {
         Page<City> cityPage = new PageImpl<>(List.of(
-                new City(1L, "c1", "c1Url"),
-                new City(2L, "c2", "c2Url")
+                new City(1L, "c1", "c1Url", null),
+                new City(2L, "c2", "c2Url", null)
         ));
 
         given(cityRepository.findAll(DEFAULT_PAGING_DATA)).willReturn(cityPage);
@@ -52,8 +53,8 @@ class CityServiceTests {
     @Test
     void updateCity() {
         Long id = 1L;
-        City newCity = new City(id, "Sofia234", "someUrl");
-        City existingCity = new City(id,"Sofia", "someUrl");
+        City newCity = new City(id, "Sofia234", "someUrl", null);
+        City existingCity = new City(id,"Sofia", "someUrl", null);
 
         given(cityRepository.findById(id)).willReturn(Optional.of(existingCity));
         ArgumentCaptor<City> cityArgumentCaptor = ArgumentCaptor.forClass(City.class);
@@ -73,7 +74,7 @@ class CityServiceTests {
     void updateCity_shouldThrowIllegalArgumentExceptionWhenCityNotFound() {
         City city = new City( "Sofia", "someUrl");
         assertThatThrownBy(() -> cityServiceUnderTest.updateCity(city))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(CityNotFoundException.class);
 
         verify(cityRepository, never()).save(any());
     }
