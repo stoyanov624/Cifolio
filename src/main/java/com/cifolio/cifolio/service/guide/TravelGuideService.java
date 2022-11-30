@@ -1,11 +1,12 @@
 package com.cifolio.cifolio.service.guide;
 
-import com.cifolio.cifolio.model.city.TravelGuide;
-import com.cifolio.cifolio.repository.TravelGuideRepository;
-import org.springframework.stereotype.Service;
-import java.util.List;
-
+import com.cifolio.cifolio.exception_handling.exceptions.EntityNotFoundException;
+import com.cifolio.cifolio.models.city.TravelGuide;
+import com.cifolio.cifolio.repositories.TravelGuideRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class TravelGuideService {
 
     public void updateTravelGuide(TravelGuide updatedGuide) {
         TravelGuide guide = travelGuideRepository.findById(updatedGuide.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Guide with that ID not found!"));
+                .orElseThrow(() -> new EntityNotFoundException("Unable to update! Guide with ID: " + updatedGuide.getId() + " not found!"));
 
         guide.setName(updatedGuide.getName());
         guide.setCities(updatedGuide.getCities());
@@ -31,7 +32,7 @@ public class TravelGuideService {
 
     public void deleteTravelGuideById(Long guideId) {
         TravelGuide guide = travelGuideRepository.findById(guideId)
-                .orElseThrow(() -> new IllegalArgumentException("Guide with that ID not found!"));
+                .orElseThrow(() -> new EntityNotFoundException("Unable to delete! Guide with ID: " + guideId + " not found!"));
 
         travelGuideRepository.delete(guide);
     }

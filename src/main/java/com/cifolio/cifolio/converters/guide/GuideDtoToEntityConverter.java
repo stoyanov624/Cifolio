@@ -1,8 +1,8 @@
 package com.cifolio.cifolio.converters.guide;
 
-import com.cifolio.cifolio.dto.guide.TravelGuideDto;
-import com.cifolio.cifolio.mapper.city.CityMapper;
-import com.cifolio.cifolio.model.city.TravelGuide;
+import com.cifolio.cifolio.dtos.guide.TravelGuideDto;
+import com.cifolio.cifolio.mappers.city.CityMapper;
+import com.cifolio.cifolio.models.city.TravelGuide;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

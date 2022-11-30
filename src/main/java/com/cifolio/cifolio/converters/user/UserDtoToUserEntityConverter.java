@@ -1,6 +1,6 @@
 package com.cifolio.cifolio.converters.user;
-import com.cifolio.cifolio.dto.user.UserDto;
-import com.cifolio.cifolio.model.user.User;
+import com.cifolio.cifolio.dtos.user.UserDto;
+import com.cifolio.cifolio.models.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

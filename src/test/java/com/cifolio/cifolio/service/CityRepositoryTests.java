@@ -1,7 +1,7 @@
 package com.cifolio.cifolio.service;
 
-import com.cifolio.cifolio.model.city.City;
-import com.cifolio.cifolio.repository.CityRepository;
+import com.cifolio.cifolio.models.city.City;
+import com.cifolio.cifolio.repositories.CityRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
