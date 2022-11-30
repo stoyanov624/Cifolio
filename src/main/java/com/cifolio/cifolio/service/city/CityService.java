@@ -1,6 +1,6 @@
 package com.cifolio.cifolio.service.city;
 
-import com.cifolio.cifolio.exception_handling.exceptions.CityNotFound;
+import com.cifolio.cifolio.exception_handling.exceptions.CityNotFoundException;
 import com.cifolio.cifolio.model.city.City;
 import com.cifolio.cifolio.repository.CityRepository;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ public class CityService {
 
     public void updateCity(City city) {
         cityRepository.findById(city.getId())
-            .orElseThrow(() -> new CityNotFound("Unable to update! City with ID: " + city.getId() + " not found!"));
+            .orElseThrow(() -> new CityNotFoundException("Unable to update! City with ID: " + city.getId() + " not found!"));
 
         cityRepository.save(city);
     }

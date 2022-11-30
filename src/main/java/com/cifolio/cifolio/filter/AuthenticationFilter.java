@@ -46,7 +46,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         Cookie userAuthenticationCookie = new Cookie(JWT_ACCESS_TOKEN_NAME, accessToken);
 
         userAuthenticationCookie.setHttpOnly(true);
-        userAuthenticationCookie.setMaxAge(3600);
+        userAuthenticationCookie.setMaxAge(3600 * 24);
         response.addCookie(userAuthenticationCookie);
 
         Map<String, String> responseBody = new HashMap<>();
