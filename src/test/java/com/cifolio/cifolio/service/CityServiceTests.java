@@ -1,7 +1,7 @@
 package com.cifolio.cifolio.service;
-import com.cifolio.cifolio.exception_handling.exceptions.CityNotFoundException;
-import com.cifolio.cifolio.model.city.City;
-import com.cifolio.cifolio.repository.CityRepository;
+import com.cifolio.cifolio.exception_handling.exceptions.EntityNotFoundException;
+import com.cifolio.cifolio.models.city.City;
+import com.cifolio.cifolio.repositories.CityRepository;
 import com.cifolio.cifolio.service.city.CityService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -74,7 +74,7 @@ class CityServiceTests {
     void updateCity_shouldThrowIllegalArgumentExceptionWhenCityNotFound() {
         City city = new City( "Sofia", "someUrl");
         assertThatThrownBy(() -> cityServiceUnderTest.updateCity(city))
-                .isInstanceOf(CityNotFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
 
         verify(cityRepository, never()).save(any());
     }

@@ -1,6 +1,6 @@
 package com.cifolio.cifolio.exception_handling;
 
-import com.cifolio.cifolio.exception_handling.exceptions.CityNotFoundException;
+import com.cifolio.cifolio.exception_handling.exceptions.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,18 +13,17 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 @Slf4j
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(CityNotFoundException.class)
-    public ResponseEntity<Object> handleCityNotFound(CityNotFoundException exception) {
-        return new ResponseEntity<>(new ApiError(
-                exception.getMessage(),
-                HttpStatus.NOT_FOUND,
-                LocalDateTime.now()), HttpStatus.NOT_FOUND
-        );
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handleCityNotFound(EntityNotFoundException exception) {
+        log.error("EntityNotFoundException : ", exception);
+        ErrorDTO error = new ErrorDTO(exception.getMessage(), HttpStatus.NOT_FOUND, LocalDateTime.now());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<Object> handleNullPointerException(NullPointerException exception) {
-        ApiError error = new ApiError(exception.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        log.error("NullPointerException : ", exception);
+        ErrorDTO error = new ErrorDTO(exception.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

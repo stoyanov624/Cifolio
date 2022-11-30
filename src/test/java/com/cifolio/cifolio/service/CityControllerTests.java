@@ -1,12 +1,12 @@
 package com.cifolio.cifolio.service;
 
-import com.cifolio.cifolio.controller.CityController;
+import com.cifolio.cifolio.controllers.CityController;
 import com.cifolio.cifolio.converters.city.CityDtoToEntityConverter;
 import com.cifolio.cifolio.converters.city.CityEntityToDtoConverter;
-import com.cifolio.cifolio.dto.city.CityDto;
-import com.cifolio.cifolio.exception_handling.exceptions.CityNotFoundException;
-import com.cifolio.cifolio.mapper.city.CityMapper;
-import com.cifolio.cifolio.model.city.City;
+import com.cifolio.cifolio.dtos.city.CityDto;
+import com.cifolio.cifolio.exception_handling.exceptions.EntityNotFoundException;
+import com.cifolio.cifolio.mappers.city.CityMapper;
+import com.cifolio.cifolio.models.city.City;
 import com.cifolio.cifolio.service.city.CityService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,7 @@ public class CityControllerTests {
         CityDto city = new CityDto(null, "Sofia", "url");
 
         City cityModel = cityDtoToEntityConverter.apply(city);
-        doThrow(CityNotFoundException.class).when(cityService).updateCity(cityModel);
+        doThrow(EntityNotFoundException.class).when(cityService).updateCity(cityModel);
         String input = objectMapper.writeValueAsString(city);
 
         mockMvc.perform(put("/api/cities")
