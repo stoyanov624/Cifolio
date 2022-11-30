@@ -22,29 +22,19 @@ public class UserController {
 
     @PostMapping("/register")
     private ResponseEntity<String> registerUser(@RequestBody UserDto registrationForm) {
-        try {
-            userService.registerUser(userDtoToUserEntityConverter.apply(registrationForm));
-            return ResponseEntity.ok().body("Successful registration!");
-        } catch (Exception exception) {
-            log.info(exception.getMessage());
-            return ResponseEntity.badRequest().body("Error occurred while registration attempt!");
-        }
+        userService.registerUser(userDtoToUserEntityConverter.apply(registrationForm));
+        return ResponseEntity.ok().body("Successful registration!");
     }
 
     @DeleteMapping("/logout")
     private ResponseEntity<Void> logout() {
-        try {
-            ResponseCookie deleteSpringCookie = ResponseCookie
-                    .from(JWT_ACCESS_TOKEN_NAME, "")
-                    .build();
+        ResponseCookie deleteSpringCookie = ResponseCookie
+                .from(JWT_ACCESS_TOKEN_NAME, "")
+                .build();
 
-            return ResponseEntity
-                    .ok()
-                    .header(HttpHeaders.SET_COOKIE, deleteSpringCookie.toString())
-                    .build();
-        } catch (Exception exception) {
-            log.info(exception.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.SET_COOKIE, deleteSpringCookie.toString())
+                .build();
     }
 }

@@ -38,8 +38,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         }
 
         if (request.getCookies() != null) {
-            try {
-                Optional<String> userCookie = Arrays.stream(request.getCookies())
+            Optional<String> userCookie = Arrays.stream(request.getCookies())
                         .filter(cookie ->
                                 cookie.getName().equals(JWT_ACCESS_TOKEN_NAME))
                         .map(Cookie::getValue)
@@ -58,19 +57,9 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
                 filterChain.doFilter(request, response);
-            } catch (Exception exception) {
-                response.setHeader("Error", exception.getMessage());
-                response.setStatus(FORBIDDEN.value());
-                log.info(exception.toString());
-
-                Map<String, String> errorMessage = new HashMap<>();
-                errorMessage.put("error_message", "Unauthorized user!");
-                response.setContentType(APPLICATION_JSON_VALUE);
-
-                new ObjectMapper().writeValue(response.getOutputStream(), errorMessage);
+                return;
             }
-            return;
-        }
+
 
         filterChain.doFilter(request, response);
     }

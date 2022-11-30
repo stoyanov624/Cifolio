@@ -21,50 +21,26 @@ public class TravelGuideController {
 
     @GetMapping("/guides" )
     public ResponseEntity<?> getGuidePage() {
-        try {
-            List<TravelGuide> guides = travelGuideService.getGuides();
-            return ResponseEntity.ok().body(guideMapper.mapGuideEntitiesToGuideDto(guides));
-        } catch (Exception exception) {
-            log.info(exception.getMessage());
-            return ResponseEntity.badRequest().body("Unable to add city to guide!");
-        }
+        List<TravelGuide> guides = travelGuideService.getGuides();
+        return ResponseEntity.ok().body(guideMapper.mapGuideEntitiesToGuideDto(guides));
     }
 
     @PutMapping("/guides" )
     public ResponseEntity<?> updateTravelGuide(
             @RequestBody() TravelGuideDto guide) {
-        try {
-            travelGuideService.updateTravelGuide(
-                    guideMapper.mapGuideDtoToEntity(guide)
-            );
-            return ResponseEntity.ok().build();
-        } catch (Exception exception) {
-            log.info(exception.getMessage());
-            return ResponseEntity.badRequest().body("Unable to add city to guide!");
-        }
+        travelGuideService.updateTravelGuide(guideMapper.mapGuideDtoToEntity(guide));
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/guides" )
     public ResponseEntity<?> createNewGuide(@RequestBody() TravelGuideDto guideDto) {
-        try {
-            TravelGuide createdTravelGuide = travelGuideService.createTravelGuide(
-                    guideMapper.mapGuideDtoToEntity(guideDto)
-            );
-            return ResponseEntity.ok().body(createdTravelGuide);
-        } catch (Exception exception) {
-            log.info(exception.getMessage());
-            return ResponseEntity.badRequest().body("Unable to create new guide!");
-        }
+        TravelGuide createdTravelGuide = travelGuideService.createTravelGuide(guideMapper.mapGuideDtoToEntity(guideDto));
+        return ResponseEntity.ok().body(createdTravelGuide);
     }
 
     @DeleteMapping("/guides/{guideId}" )
     public ResponseEntity<?> deleteGuide(@PathVariable(name = "guideId") Long guideId) {
-        try {
-            travelGuideService.deleteTravelGuideById(guideId);
-            return ResponseEntity.ok().build();
-        } catch (Exception exception) {
-            log.info(exception.getMessage());
-            return ResponseEntity.badRequest().body("Unable to create new guide!");
-        }
+        travelGuideService.deleteTravelGuideById(guideId);
+        return ResponseEntity.ok().build();
     }
 }

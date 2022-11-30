@@ -52,11 +52,7 @@ public class CityController {
     @PreAuthorize("hasAuthority(\"" + ADMIN_ROLE + "\")")
     @PutMapping("/cities")
     public ResponseEntity<Void> updateCity(@RequestBody CityDto city) {
-        try {
-            cityService.updateCity(cityMapper.mapCityDtoToEntity(city));
-            return ResponseEntity.ok().build();
-        } catch (Exception error) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        cityService.updateCity(cityMapper.mapCityDtoToEntity(city));
+        return ResponseEntity.ok().build();
     }
 }
