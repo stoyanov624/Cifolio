@@ -6,13 +6,17 @@ import com.cifolio.cifolio.models.city.TravelGuide;
 import com.cifolio.cifolio.service.guide.TravelGuideService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Validated
 @Slf4j
 public class TravelGuideController {
     private final TravelGuideService travelGuideService;
@@ -25,17 +29,17 @@ public class TravelGuideController {
     }
 
     @PutMapping("/guides" )
-    public void updateTravelGuide(@RequestBody() TravelGuideDto guide) {
+    public void updateTravelGuide(@Valid @RequestBody() TravelGuideDto guide) {
         travelGuideService.updateTravelGuide(guideMapper.mapGuideDtoToEntity(guide));
     }
 
     @PostMapping("/guides" )
-    public TravelGuide createNewGuide(@RequestBody() TravelGuideDto guideDto) {
+    public TravelGuide createNewGuide(@Valid @RequestBody() TravelGuideDto guideDto) {
         return travelGuideService.createTravelGuide(guideMapper.mapGuideDtoToEntity(guideDto));
     }
 
     @DeleteMapping("/guides/{guideId}" )
-    public void deleteGuide(@PathVariable(name = "guideId") Long guideId) {
+    public void deleteGuide(@PathVariable(name = "guideId") @Min(1) Long guideId) {
         travelGuideService.deleteTravelGuideById(guideId);
     }
 }

@@ -1,5 +1,5 @@
 package com.cifolio.cifolio.service;
-import com.cifolio.cifolio.exception_handling.exceptions.EntityNotFoundException;
+
 import com.cifolio.cifolio.models.city.City;
 import com.cifolio.cifolio.repositories.CityRepository;
 import com.cifolio.cifolio.service.city.CityService;
@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,7 +72,7 @@ class CityServiceTests {
     }
 
     @Test
-    void updateCity_shouldThrowIllegalArgumentExceptionWhenCityNotFound() {
+    void updateCity_shouldThrowEntityNotFoundExceptionWhenCityNotFound() {
         City city = new City( "Sofia", "someUrl");
         assertThatThrownBy(() -> cityServiceUnderTest.updateCity(city))
                 .isInstanceOf(EntityNotFoundException.class);

@@ -1,6 +1,5 @@
 package com.cifolio.cifolio.exception_handling;
 
-import com.cifolio.cifolio.exception_handling.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +35,22 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         return buildCustomResponseEntityOnError(exception, BAD_REQUEST);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException exception) {
+        List<ViolationDto> error = new ArrayList<>();
+        for (ConstraintViolation violation : exception.getConstraintViolations()) {
+            error.add(new ViolationDto(violation.getPropertyPath().toString(), violation.getMessage()));
+        }
+        return new ResponseEntity<>(error, BAD_REQUEST);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<ViolationDto> error = new ArrayList<>();
         for (FieldError fieldError : exception.getBindingResult().getFieldErrors()) {
             error.add(new ViolationDto(fieldError.getField(), fieldError.getDefaultMessage()));
         }
-        return new ResponseEntity<>(error, status);
+        return new ResponseEntity<>(error, BAD_REQUEST);
     }
 
     private ResponseEntity<Object> buildCustomResponseEntityOnError(Exception exception, HttpStatus status) {

@@ -1,14 +1,14 @@
 package com.cifolio.cifolio.service.city;
 
-import com.cifolio.cifolio.exception_handling.exceptions.EntityNotFoundException;
 import com.cifolio.cifolio.models.city.City;
 import com.cifolio.cifolio.repositories.CityRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import lombok.AllArgsConstructor;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 
 @Service

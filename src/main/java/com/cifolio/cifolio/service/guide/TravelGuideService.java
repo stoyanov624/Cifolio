@@ -1,11 +1,11 @@
 package com.cifolio.cifolio.service.guide;
 
-import com.cifolio.cifolio.exception_handling.exceptions.EntityNotFoundException;
 import com.cifolio.cifolio.models.city.TravelGuide;
 import com.cifolio.cifolio.repositories.TravelGuideRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
