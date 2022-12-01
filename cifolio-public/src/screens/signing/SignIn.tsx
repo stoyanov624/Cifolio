@@ -31,7 +31,7 @@ export default function SignIn() {
     }
 
     useEffect(() => {
-       auth.logout();
+       auth.isAuthenticated() && auth.logout();
     }, [])
 
     return (<div className={"signing-form-container center"}>

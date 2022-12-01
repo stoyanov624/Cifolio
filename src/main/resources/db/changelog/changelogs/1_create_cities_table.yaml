@@ -1,0 +1,23 @@
+databaseChangeLog:
+  -  changeSet:
+       id: "1"
+       author:  Ivaylo Stoyanov
+       changes:
+         -  createTable:
+              tableName:  cities
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       primaryKeyName: city_id_pk
+                -  column:
+                     name:  name
+                     type:  varchar(100)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  photo
+                     type:  varchar(2048)

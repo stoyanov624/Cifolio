@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: "3"
+      author: Ivaylo Stoyanov
+      changes:
+        - createTable:
+            tableName: "users"
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: user_id_pk
+              - column:
+                  name: username
+                  type: varchar(64)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(64)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: role
+                  type: enum('user', 'admin')
+                  constraints:
+                    nullable: false

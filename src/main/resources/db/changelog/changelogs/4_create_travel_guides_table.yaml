@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: "4"
+      author: Ivaylo Stoyanov
+      changes:
+        - createTable:
+            tableName: "travel_guides"
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: travel_guide_id_pk
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false

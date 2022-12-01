@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: "2"
+      author: Ivaylo Stoyanov
+      changes:
+        - loadData:
+            catalogName: cat
+            commentLineStartsWith: //
+            encoding: UTF-8
+            file: /../../data/cities.csv
+            quotchar: "'"
+            relativeToChangelogFile: true
+            schemaName: public
+            separator: ","
+            tableName: cities
+            usePreparedStatements: true
+
+            columns:
+              - column:
+                  name: id
+                  type: NUMERIC
+              - column:
+                  name: name
+                  type: VARCHAR
+              - column:
+                  name: photo
+                  type: VARCHAR
+

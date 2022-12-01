@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: "5"
+      author: Ivaylo Stoyanov
+      changes:
+        - createTable:
+            tableName: guides_cities
+            columns:
+              - column:
+                  name: guide_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: city_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            constraintName: fk_travel_guide
+            baseTableName: guides_cities
+            baseColumnNames: guide_id
+            referencedTableName: travel_guides
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: fk_city
+            baseTableName: guides_cities
+            baseColumnNames: city_id
+            referencedTableName: cities
+            referencedColumnNames: id
+
