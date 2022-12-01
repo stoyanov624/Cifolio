@@ -1,5 +1,7 @@
 package com.cifolio.cifolio.exception_handling;
 
+import com.cifolio.cifolio.dtos.utillity.ErrorDto;
+import com.cifolio.cifolio.dtos.utillity.ViolationDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.cifolio.cifolio.exception_handling;
+package com.cifolio.cifolio.dtos.utillity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
