@@ -4,43 +4,42 @@ import com.cifolio.cifolio.dtos.guide.TravelGuideDto;
 import com.cifolio.cifolio.mappers.guide.GuideMapper;
 import com.cifolio.cifolio.models.city.TravelGuide;
 import com.cifolio.cifolio.service.guide.TravelGuideService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Validated
 @Slf4j
 public class TravelGuideController {
     private final TravelGuideService travelGuideService;
     private final GuideMapper guideMapper;
 
     @GetMapping("/guides" )
-    public ResponseEntity<?> getGuidePage() {
+    public List<TravelGuideDto> getGuidePage() {
         List<TravelGuide> guides = travelGuideService.getGuides();
-        return ResponseEntity.ok().body(guideMapper.mapGuideEntitiesToGuideDto(guides));
+        return guideMapper.mapGuideEntitiesToGuideDto(guides);
     }
 
     @PutMapping("/guides" )
-    public ResponseEntity<?> updateTravelGuide(
-            @RequestBody() TravelGuideDto guide) {
+    public void updateTravelGuide(@Valid @RequestBody() TravelGuideDto guide) {
         travelGuideService.updateTravelGuide(guideMapper.mapGuideDtoToEntity(guide));
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/guides" )
-    public ResponseEntity<?> createNewGuide(@RequestBody() TravelGuideDto guideDto) {
-        TravelGuide createdTravelGuide = travelGuideService.createTravelGuide(guideMapper.mapGuideDtoToEntity(guideDto));
-        return ResponseEntity.ok().body(createdTravelGuide);
+    public TravelGuide createNewGuide(@Valid @RequestBody() TravelGuideDto guideDto) {
+        return travelGuideService.createTravelGuide(guideMapper.mapGuideDtoToEntity(guideDto));
     }
 
     @DeleteMapping("/guides/{guideId}" )
-    public ResponseEntity<?> deleteGuide(@PathVariable(name = "guideId") Long guideId) {
+    public void deleteGuide(@PathVariable(name = "guideId") @Min(1) Long guideId) {
         travelGuideService.deleteTravelGuideById(guideId);
-        return ResponseEntity.ok().build();
     }
 }

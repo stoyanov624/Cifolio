@@ -20,8 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
-import static com.cifolio.cifolio.constants.SecurityConstants.JWT_ACCESS_TOKEN_NAME;
-import static com.cifolio.cifolio.constants.SecurityConstants.JWT_AUTHORITIES_CLAIM_NAME;
+import static com.cifolio.cifolio.constants.SecurityConstants.*;
 import static java.util.Arrays.stream;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -32,7 +31,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     private final JwtDecoder jwtDecoder;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (request.getServletPath().equals("/api/login") || request.getServletPath().equals("/api/register") || request.getServletPath().equals("/api/logout")) {
+        if (stream(WHITE_LIST_URIS).anyMatch(request.getServletPath()::equals)) {
             filterChain.doFilter(request, response);
             return;
         }

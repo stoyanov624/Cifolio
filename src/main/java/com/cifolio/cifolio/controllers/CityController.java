@@ -1,9 +1,10 @@
 package com.cifolio.cifolio.controllers;
 
-import com.cifolio.cifolio.mappers.city.CityMapper;
-import com.cifolio.cifolio.service.city.CityService;
 import com.cifolio.cifolio.dtos.city.CityDto;
+import com.cifolio.cifolio.mappers.city.CityMapper;
 import com.cifolio.cifolio.models.city.City;
+import com.cifolio.cifolio.service.city.CityService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -11,11 +12,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import lombok.RequiredArgsConstructor;
 
+import javax.validation.Valid;
 import java.util.List;
 
-import static com.cifolio.cifolio.constants.CityConstants.*;
+import static com.cifolio.cifolio.constants.CityConstants.DEFAULT_PAGE_SIZE;
 import static com.cifolio.cifolio.constants.UserConstants.ADMIN_ROLE;
 
 @RestController
@@ -40,18 +41,13 @@ public class CityController {
     }
 
     @GetMapping("/cities")
-    public ResponseEntity<List<CityDto>> getCities() {
-        List<CityDto> cities = cityMapper.mapCityEntitiesToDtos(
-                cityService.getCities()
-        );
-
-        return ResponseEntity.ok().body(cities);
+    public List<CityDto> getCities() {
+        return cityMapper.mapCityEntitiesToDtos(cityService.getCities());
     }
 
     @PreAuthorize("hasAuthority(\"" + ADMIN_ROLE + "\")")
     @PutMapping("/cities")
-    public ResponseEntity<Void> updateCity(@RequestBody CityDto city) {
+    public void updateCity(@Valid @RequestBody CityDto city) {
         cityService.updateCity(cityMapper.mapCityDtoToEntity(city));
-        return ResponseEntity.ok().build();
     }
 }

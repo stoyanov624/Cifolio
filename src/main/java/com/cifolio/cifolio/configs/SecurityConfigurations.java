@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.cifolio.cifolio.constants.SecurityConstants.JWT_AUTHORITIES_CLAIM_NAME;
+import static com.cifolio.cifolio.constants.SecurityConstants.WHITE_LIST_URIS;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -46,7 +47,6 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfigurations {
     private final CustomUserDetailsService customUserDetailsService;
     private RSAKey rsaKey;
-    private final String[] WHITE_LIST = {"/h2-console/**", "/api/register", "/api/login", "/api/logout"};
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -59,7 +59,8 @@ public class SecurityConfigurations {
                 .cors() // need corsConfigurationSource for this to work.
                 .and()
                 .authorizeRequests(auth -> auth
-                        .antMatchers(WHITE_LIST).permitAll()
+                        .antMatchers("/h2-console/**").permitAll()
+                        .antMatchers(WHITE_LIST_URIS).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .userDetailsService(customUserDetailsService)
