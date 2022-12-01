@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Getter
-public class ErrorDTO {
-    private String message;
-    private HttpStatus status;
-    private LocalDateTime timestamp;
+public class ErrorDto {
+    private final String message;
+    private final HttpStatus status;
+    private final LocalDateTime timestamp;
 }

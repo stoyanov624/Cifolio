@@ -3,12 +3,14 @@ package com.cifolio.cifolio.controllers;
 import com.cifolio.cifolio.converters.user.UserDtoToUserEntityConverter;
 import com.cifolio.cifolio.dtos.user.UserDto;
 import com.cifolio.cifolio.service.user.UserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
+import javax.validation.Valid;
 
 import static com.cifolio.cifolio.constants.SecurityConstants.JWT_ACCESS_TOKEN_NAME;
 
@@ -21,7 +23,7 @@ public class UserController {
     private final UserDtoToUserEntityConverter userDtoToUserEntityConverter;
 
     @PostMapping("/register")
-    private ResponseEntity<String> registerUser(@RequestBody UserDto registrationForm) {
+    private ResponseEntity<String> registerUser(@Valid @RequestBody UserDto registrationForm) {
         userService.registerUser(userDtoToUserEntityConverter.apply(registrationForm));
         return ResponseEntity.ok().body("Successful registration!");
     }
