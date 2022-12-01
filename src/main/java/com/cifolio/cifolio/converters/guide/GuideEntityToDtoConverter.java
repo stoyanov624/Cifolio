@@ -21,7 +21,7 @@ public class GuideEntityToDtoConverter implements Function<TravelGuide, TravelGu
         return new TravelGuideDto(
                 guide.getId(),
                 guide.getName(),
-                cityMapper.mapCityEntitiesToDtos(guide.getCities())
+                cityMapper.mapToDtoList(guide.getCities())
         );
     }
 }

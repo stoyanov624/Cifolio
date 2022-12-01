@@ -10,10 +10,6 @@ import java.util.function.Function;
 public class CityEntityToDtoConverter implements Function<City, CityDto> {
     @Override
     public CityDto apply(City city) {
-        return convertToDto(city);
-    }
-
-    private CityDto convertToDto(City city) {
         return new CityDto(city.getId(), city.getName(), city.getPhoto());
     }
 }

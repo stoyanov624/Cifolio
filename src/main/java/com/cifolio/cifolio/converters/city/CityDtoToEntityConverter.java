@@ -11,10 +11,6 @@ import java.util.function.Function;
 public class CityDtoToEntityConverter implements Function<CityDto, City> {
     @Override
     public City apply(CityDto cityDto) {
-        return convertToEntity(cityDto);
-    }
-
-    private City convertToEntity(CityDto city) {
-        return new City(city.getId(), city.getName(), city.getPhoto(), new HashSet<>());
+        return new City(cityDto.getId(), cityDto.getName(), cityDto.getPhoto(), new HashSet<>());
     }
 }
