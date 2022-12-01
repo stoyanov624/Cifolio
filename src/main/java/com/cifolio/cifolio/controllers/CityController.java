@@ -40,18 +40,13 @@ public class CityController {
     }
 
     @GetMapping("/cities")
-    public ResponseEntity<List<CityDto>> getCities() {
-        List<CityDto> cities = cityMapper.mapCityEntitiesToDtos(
-                cityService.getCities()
-        );
-
-        return ResponseEntity.ok().body(cities);
+    public List<CityDto> getCities() {
+        return cityMapper.mapCityEntitiesToDtos(cityService.getCities());
     }
 
     @PreAuthorize("hasAuthority(\"" + ADMIN_ROLE + "\")")
     @PutMapping("/cities")
-    public ResponseEntity<Void> updateCity(@RequestBody CityDto city) {
+    public void updateCity(@RequestBody CityDto city) {
         cityService.updateCity(cityMapper.mapCityDtoToEntity(city));
-        return ResponseEntity.ok().build();
     }
 }

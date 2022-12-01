@@ -23,20 +23,13 @@ public class UserController {
     private final UserDtoToUserEntityConverter userDtoToUserEntityConverter;
 
     @PostMapping("/register")
-    private ResponseEntity<String> registerUser(@Valid @RequestBody UserDto registrationForm) {
+    private void registerUser(@Valid @RequestBody UserDto registrationForm) {
         userService.registerUser(userDtoToUserEntityConverter.apply(registrationForm));
-        return ResponseEntity.ok().body("Successful registration!");
     }
 
     @DeleteMapping("/logout")
-    private ResponseEntity<Void> logout() {
-        ResponseCookie deleteSpringCookie = ResponseCookie
-                .from(JWT_ACCESS_TOKEN_NAME, "")
-                .build();
-
-        return ResponseEntity
-                .ok()
-                .header(HttpHeaders.SET_COOKIE, deleteSpringCookie.toString())
-                .build();
+    private ResponseEntity<Object> logout() {
+        ResponseCookie deleteSpringCookie = ResponseCookie.from(JWT_ACCESS_TOKEN_NAME, "").build();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, deleteSpringCookie.toString()).build();
     }
 }
