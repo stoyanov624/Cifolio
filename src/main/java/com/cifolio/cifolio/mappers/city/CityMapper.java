@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -17,21 +16,19 @@ public class CityMapper {
     private final CityDtoToEntityConverter dtoToCityConverter;
     private final CityEntityToDtoConverter cityToDtoConverter;
 
-    public City mapCityDtoToEntity(CityDto cityDto) {
+    public City mapToEntity(CityDto cityDto) {
         return dtoToCityConverter.apply(cityDto);
     }
 
-    public List<CityDto> mapCityEntitiesToDtos(Collection<City> entities) {
-        return entities
-                .stream()
-                .map(cityToDtoConverter)
-                .collect(Collectors.toList());
+    public CityDto mapToDto(City city) {
+        return cityToDtoConverter.apply(city);
     }
 
-    public List<City> mapCityDtosToEntities(Collection<CityDto> entities) {
-        return entities
-                .stream()
-                .map(dtoToCityConverter)
-                .collect(Collectors.toList());
+    public List<CityDto> mapToDtoList(Collection<City> entities) {
+        return entities.stream().map(cityToDtoConverter).toList();
+    }
+
+    public List<City> toEntityList(Collection<CityDto> entities) {
+        return entities.stream().map(dtoToCityConverter).toList();
     }
 }

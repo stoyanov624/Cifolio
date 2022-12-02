@@ -19,10 +19,6 @@ public class GuideDtoToEntityConverter implements Function<TravelGuideDto, Trave
     }
 
     private TravelGuide convertToEntity(TravelGuideDto guideDto) {
-        return new TravelGuide(
-                guideDto.getId(),
-                guideDto.getName(),
-                new HashSet(cityMapper.mapCityDtosToEntities(guideDto.getCities()))
-        );
+        return new TravelGuide(guideDto.getId(), guideDto.getName(), new HashSet(cityMapper.toEntityList(guideDto.getCities())));
     }
 }

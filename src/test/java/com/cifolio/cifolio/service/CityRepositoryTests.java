@@ -24,7 +24,7 @@ class CityRepositoryTests {
 
     @Test
     void shouldFindCitiesByNameWhenTheyArePresentInDb() {
-        City city = new City("Sofia", "someUrl");
+        City city = City.builder().name("Sofia").photo("someUrl").build();
         underTest.save(city);
 
         Page<City> citiesPage = underTest.findAllOnPageByNameIsContaining("Sofia", DEFAULT_PAGING_DATA);
