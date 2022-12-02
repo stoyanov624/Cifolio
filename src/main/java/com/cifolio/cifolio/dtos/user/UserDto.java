@@ -5,8 +5,8 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 
-@Getter
 @AllArgsConstructor
+@Getter
 public class UserDto {
     @NotBlank()
     private String username;

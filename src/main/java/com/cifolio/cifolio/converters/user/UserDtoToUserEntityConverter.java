@@ -1,12 +1,12 @@
 package com.cifolio.cifolio.converters.user;
+
 import com.cifolio.cifolio.dtos.user.UserDto;
 import com.cifolio.cifolio.models.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import java.util.function.Function;
 
-import static com.cifolio.cifolio.constants.UserConstants.USER_ROLE;
+import java.util.function.Function;
 
 
 @Component
@@ -19,11 +19,10 @@ public class UserDtoToUserEntityConverter implements Function<UserDto, User> {
     }
 
     private User convertToUserEntity(UserDto userDto) {
-        User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setRole(USER_ROLE);
-        return user;
+        return User.builder()
+            .username(userDto.getUsername())
+            .email(userDto.getEmail())
+            .password(passwordEncoder.encode(userDto.getPassword()))
+            .build();
     }
 }
