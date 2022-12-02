@@ -35,8 +35,8 @@ class CityServiceTests {
     @Test
     void getCitiesPage() {
         Page<City> cityPage = new PageImpl<>(List.of(
-                new City(1L, "c1", "c1Url", null),
-                new City(2L, "c2", "c2Url", null)
+                City.builder().id(1L).name("firstCityName").photo("firstCityUrl").build(),
+                City.builder().id(2L).name("secondCityName").photo("firstCityUrl").build()
         ));
 
         given(cityRepository.findAll(DEFAULT_PAGING_DATA)).willReturn(cityPage);
@@ -54,8 +54,8 @@ class CityServiceTests {
     @Test
     void updateCity() {
         Long id = 1L;
-        City newCity = new City(id, "Sofia234", "someUrl", null);
-        City existingCity = new City(id,"Sofia", "someUrl", null);
+        City newCity = City.builder().id(id).name("NewCityName").photo("someUrl").build();
+        City existingCity = City.builder().id(id).name("ExistingCityName").photo("someUrl").build();
 
         given(cityRepository.findById(id)).willReturn(Optional.of(existingCity));
         ArgumentCaptor<City> cityArgumentCaptor = ArgumentCaptor.forClass(City.class);
@@ -73,7 +73,7 @@ class CityServiceTests {
 
     @Test
     void updateCity_shouldThrowEntityNotFoundExceptionWhenCityNotFound() {
-        City city = new City( "Sofia", "someUrl");
+        City city = City.builder().name("Sofia").photo("someUrl").build();
         assertThatThrownBy(() -> cityServiceUnderTest.updateCity(city))
                 .isInstanceOf(EntityNotFoundException.class);
 

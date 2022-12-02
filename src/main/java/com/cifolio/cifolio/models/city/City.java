@@ -7,11 +7,10 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "cities")
+@Entity(name = "cities")
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
+@Builder
 @Getter
 public class City {
     @Id
@@ -27,9 +26,4 @@ public class City {
     @JsonIgnore
     @ManyToMany(mappedBy = "cities")
     private Set<TravelGuide> guides = new HashSet<>();
-
-    public City(String name, String photo) {
-        this.name = name;
-        this.photo = photo;
-    }
 }
